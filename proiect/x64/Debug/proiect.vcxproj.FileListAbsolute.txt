@@ -1,0 +1,3 @@
+C:\Users\ioana\Desktop\Unibuc\POO\New folder\x64\Debug\raylib.dll
+C:\Users\ioana\Desktop\Unibuc\POO\New folder\x64\Debug\glfw3.dll
+C:\Users\ioana\Desktop\Unibuc\POO\New folder\proiect\x64\Debug\proiect.vcxproj.Up2Date
