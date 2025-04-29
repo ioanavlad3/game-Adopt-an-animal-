@@ -19,9 +19,9 @@ std::string Button::getText() const {
 	return this->text;
 }
 
-std::string Button::transformText(const std::string& text) {
+std::string Button::transformText(const std::string text) {
 	std::string transformedText = text;
-	for (char& c : transformedText) {
+	for (char c : transformedText) {
 		c = toupper(c);
 	}
 	return transformedText;

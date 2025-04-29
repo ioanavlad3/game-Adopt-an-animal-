@@ -8,11 +8,11 @@ Game::Game() {}
 void Game::addAnimal(Animal* animal) {
 	if (animal->getName() != "Unknown") {
 		this->animals.push_back(animal);
-		if (dynamic_cast<Dog*>(animal)) {
+		if (dynamic_cast<Dog*>(animal)) {	// verific daca animalul este de tip Dog
 			this->dogs.push_back(dynamic_cast<Dog*>(animal));
 			dogCount++;
 		}
-		else if (dynamic_cast<Cat*>(animal)) {
+		else if (dynamic_cast<Cat*>(animal)) {  
 			this->cats.push_back(dynamic_cast<Cat*>(animal));
 			catCount++;
 		}
@@ -21,7 +21,7 @@ void Game::addAnimal(Animal* animal) {
 				SpeciesNotFoundException e(animal->getSpecies());
 		}
 	}
-	}
+}
 	
 
 void Game::addDog(Dog* dog) {
@@ -34,7 +34,7 @@ void Game::addCat(Cat* cat) {
 	catCount++;
 }
 void Game::displayDogs() const{
-	for (const auto& d : this->dogs)
+	for (const auto d : this->dogs)
 	{
 		d->display();
 		std::cout << std::endl;
@@ -78,45 +78,6 @@ void Game::displayCatsSpecies() const {
 	}
 }
 
-Dog* Game::displayDogSpecies(const std::string nameSpecies) const {
-	DrawText(nameSpecies.c_str(), 190, 200, 20, PURPLE);
-	int startY = 230;
-	int i = 0;
-	bool found = false;
-	for (auto* d : this->dogs) {
-		if (d->getSpecies() == nameSpecies) {
-			found = true;
-			std::string caracteristics = d->display2();
-			Button B_breed(caracteristics, 200, startY + i, 500, 65);
-			B_breed.Draw();
-			i += 70;
-			if (B_breed.isPressed()) {
-				return d;  
-			}
-		}
-	}
-	if (found == false) throw SpeciesNotFoundException(nameSpecies);
-	return nullptr;
-}
-
-Cat* Game::displayCatSpecies(const std::string nameSpecies) const {
-	DrawText(nameSpecies.c_str(), 190, 200, 20, PURPLE);
-	int startY = 230;
-	int i = 0;
-	for (auto* c : this->cats) {
-		if (c->getSpecies() == nameSpecies) {
-			std::string caracteristics = c->display2();
-			Button B_breed(caracteristics, 200, startY + i, 500, 65);
-			B_breed.Draw();
-			i += 70;
-			if (B_breed.isPressed()) {
-				return c;  
-			}
-		}
-	}
-	return nullptr;
-}
-
 Animal* Game::displayAnimalSpecies(const std::string nameSpecies)  const{
 	DrawText(nameSpecies.c_str(), 190, 200, 20, PURPLE);
 	int startY = 230;
@@ -134,9 +95,6 @@ Animal* Game::displayAnimalSpecies(const std::string nameSpecies)  const{
 	}
 	return nullptr;
 }
-
-
-
 
 std::vector<Button> Game::getCatBreedButtons() const {
 	return catBreedButtons;

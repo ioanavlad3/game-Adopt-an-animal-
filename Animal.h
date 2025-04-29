@@ -24,7 +24,7 @@ public:
     virtual void display() const; 
 	virtual std::string getSpecies() const;
 
-	std::string display2() const;
+    virtual std::string display2() const;  // returneaza string cu caracteristicile unui obiect 
     virtual std::string getName() const;
 	virtual void setAdopted();
 

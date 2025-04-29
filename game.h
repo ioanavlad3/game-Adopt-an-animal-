@@ -18,7 +18,6 @@ class Game {
 			"Siamese", "Sfinx", "Persian" };
 		mutable std::vector<Button> catBreedButtons;
 		mutable std::vector<Button> dogBreedButtons;
-	//	mutable std::vector<Button> dogSpecies;
 
 	public:
 		Game();
@@ -32,8 +31,6 @@ class Game {
 		void displayCatsSpecies() const;
 		std::vector<Button> getDogBreedButtons() const;
 		std::vector<Button> getCatBreedButtons() const;
-		Dog* displayDogSpecies(const std::string species) const;
-		Cat* displayCatSpecies(const std::string species) const;
 		Animal* displayAnimalSpecies(const std::string nameSpecies) const;
 
 		void displayAnimalSound(Animal* animal);

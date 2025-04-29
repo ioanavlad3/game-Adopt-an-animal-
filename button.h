@@ -12,5 +12,5 @@ public:
 	bool IsMouseOver() const;
 	bool isPressed() const;
 	std::string getText() const;
-	std::string transformText(const std::string& text);
+	std::string transformText(const std::string text);
 };

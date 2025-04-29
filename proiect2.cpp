@@ -3,8 +3,8 @@
 Proiect "Adapost de animale"
 La adapost vin vizitatori care doresc sa isi gaseasca un animal de companie. 
 Ei au anumite criterii pentru animalul lor:
-ce animal sa fie (caine, pisica), rasa lui si, varsta, eventual, 
-caracteristici ale animalului (prietenos, cuminte, etc).
+ce animal sa fie (caine, pisica), rasa lui, varsta si caracteristici ale 
+animalului (prietenos, cuminte, etc).
 Daca s-a gasit o compatibilitate, vizitatorul poate sa se joace putin cu animalul respectiv.
 Daca se inteleg, atunci il poate lua acasa.
 
@@ -31,7 +31,7 @@ Animal:
 		Am creat un constructor care primeste numele, varsta, dimensiunea si caracteristicile
 		animalului.
 		Am creat o functie care returneaza dimensiunea animalului in functie de rasa.
-        Am creat o functie care se ajuta de clasele pentru tratarea erorilor 
+        Am creat o functie care se ajuta de clasele pentru tratarea erorilor , 
 	pentru a crea un animal in siguranta (cu nume si varste corecte).
     
     clase derivate din Dog:
@@ -50,7 +50,7 @@ Game:
 	Am creat o clasa care contine un vector de animale, un vector de caini, un vector de pisici.
 	Am creat functii pentru a adauga animale, a afisa animalele, a afisa rasele 
     de caini si pisici.
-	Am creat functii pentru a afisa sunetul animalului, a afisa caracteristicile
+	Am creat functii pentru a afisa sunetul animalului, a afisa caracteristicile sale
 	Am creat o functie addAnimal care adauga un animal in functie de tipul lui 
 	(caine sau pisica), ajutandu-ma de dynamic_cast.
 	Am creat o functie care afiseaza animalele in functie de rasa lor, afiseaza 
@@ -91,7 +91,7 @@ int main() {
     Bichon b = dog.createDogSafe("Bella", 2, "Bichon");
 	Bichon b1 = dog.createDogSafe("Luna", -1, "Bichon");
     Poodle pud1 = dog.createDogSafe("Olive", 4, "Poodle");
-    Poodle pud = dog.createDogSafe("Gracie", 2, { "Calm" });
+    Poodle pud = dog.createDogSafe("Gracie", 2, "Poodle", { "Cute" });
 	Bulldog bulldog = dog.createDogSafe("Max", 3, "Bulldog");
 	GoldenRetriever golden = dog.createDogSafe("Rex", 5, "Golden Retriever");
 
