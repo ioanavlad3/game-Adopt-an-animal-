@@ -1,10 +1,10 @@
 ﻿  proiect2.cpp
-C:\Users\ioana\Desktop\Unibuc\POO\New folder\proiect2.cpp(345,21): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\ioana\Desktop\Unibuc\POO\New folder\proiect2.cpp(346,21): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\ioana\Desktop\Unibuc\POO\New folder\proiect2.cpp(412,25): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\ioana\Desktop\Unibuc\POO\New folder\proiect2.cpp(415,29): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\ioana\Desktop\Unibuc\POO\New folder\proiect2.cpp(423,25): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\ioana\Desktop\Unibuc\POO\New folder\proiect2.cpp(424,25): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\ioana\Desktop\Unibuc\POO\New folder\proiect2.cpp(284,21): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\ioana\Desktop\Unibuc\POO\New folder\proiect2.cpp(285,21): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\ioana\Desktop\Unibuc\POO\New folder\proiect2.cpp(351,25): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\ioana\Desktop\Unibuc\POO\New folder\proiect2.cpp(354,29): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\ioana\Desktop\Unibuc\POO\New folder\proiect2.cpp(362,25): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\ioana\Desktop\Unibuc\POO\New folder\proiect2.cpp(363,25): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   proiect.vcxproj -> C:\Users\ioana\Desktop\Unibuc\POO\New folder\x64\Debug\proiect.exe
   'pwsh.exe' is not recognized as an internal or external command,
   operable program or batch file.

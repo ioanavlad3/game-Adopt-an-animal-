@@ -13,7 +13,7 @@ class Cat : public Animal {
 		Cat& operator=(const Cat& nou);
         void makeSound() override;
 		std::string displaySound() override;
-		virtual Cat createCatSafe(const std::string& name, int age);
-		virtual Cat createCatSafe(const std::string& name, int age, 
+		virtual Cat createCatSafe(const std::string name, int age);
+		virtual Cat createCatSafe(const std::string name, int age, 
 							const std::vector<std::string> costumTraits);
 };

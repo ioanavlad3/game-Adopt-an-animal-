@@ -55,7 +55,7 @@ std::string Cat::displaySound() {
 	return name + " says: Miau Miau!";
 }
 
-Cat Cat::createCatSafe(const std::string& name, int age) {
+Cat Cat::createCatSafe(const std::string name, int age) {
 	try {
 		Cat c(name, age);
 		return c;
@@ -66,7 +66,7 @@ Cat Cat::createCatSafe(const std::string& name, int age) {
 	}
 }
 
-Cat Cat::createCatSafe(const std::string& name, int age, 
+Cat Cat::createCatSafe(const std::string name, int age, 
 				const std::vector<std::string> costumTraits) {
 	try {
 		Cat c(name, age, costumTraits);

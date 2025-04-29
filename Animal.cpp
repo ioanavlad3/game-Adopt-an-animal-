@@ -3,11 +3,8 @@
 
 Animal::Animal() : name(""), species(""), isAdopted(false), age(0), size(""), traits(){}
 
-Animal::Animal(std::string name, std::string species, bool isAdopted, int age, std::string size, std::vector<std::string> traits) {
-  /*  std::runtime_error err("Invalid name");
-	if (name == "None") {
-		throw (err);
-	}*/
+Animal::Animal(std::string name, std::string species, bool isAdopted, int age, 
+    std::string size, std::vector<std::string> traits) {
     this->name = name;
     this->species = species;
     this->isAdopted = isAdopted;

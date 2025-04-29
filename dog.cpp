@@ -96,9 +96,10 @@ Dog Dog::createDogSafe(const std::string name, int age, const std::string specie
 	}
 }
 
-Dog Dog::createDogSafe(const std::string name, int age, const std::string size,
-		const std::vector<std::string> costumTraits) {
+Dog Dog::createDogSafe(const std::string name, int age, const std::string species,
+			const std::vector<std::string> costumTraits) {
 	try {
+		std::string size = getSizeBySpecies(species);
 		Dog d(name, age, size, costumTraits);
 		return d;
 	}

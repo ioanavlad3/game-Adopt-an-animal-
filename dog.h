@@ -19,6 +19,6 @@ class Dog : public Animal {
         static std::string getSizeBySpecies(const std::string species);
 		virtual Dog createDogSafe(const std::string name, 
                         int age, const std::string size);
-		virtual Dog createDogSafe(const std::string name, int age, const std::string size,
+		virtual Dog createDogSafe(const std::string name, int age, const std::string species,
 			const std::vector<std::string> costumTraits);
 };
