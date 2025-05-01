@@ -10,7 +10,7 @@ Button::Button(std::string text, int x, int y, int width, int height) {
 	this->height = height;
 }
 void Button::Draw() const {
-	DrawRectangle(this->x, this->y, this->width, this->height, LIGHTGRAY);
+	DrawRectangle(this->x, this->y, this->width, this->height, WHITE);
 	const char* text = this->text.c_str();
 	DrawText(text, this->x + 10, this->y + 10, 20, BLACK);
 }

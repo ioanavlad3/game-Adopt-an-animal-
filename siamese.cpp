@@ -22,3 +22,7 @@ Siamese& Siamese::operator=(const Siamese& nou) {
 	}
 	return *this;
 }
+
+std::string Siamese::displaySound() {
+	return this->name + " says Mrrrr";
+}

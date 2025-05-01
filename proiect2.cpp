@@ -13,17 +13,55 @@
 #include <iostream>
 #include <exception>
 #include <stdexcept> 
+#include <ctime>
+
 
 enum GameState {
     MAIN_MENU, PLAY, DOG_BREEDS, CAT_BREEDS, GOLDEN_RETRIEVER, BULLDOG, 
     POODLE, BICHON, SIAMESE, SFINX, PERSIAN, PROCESS
 };
 
+struct NamedTexture {
+    std::string name;     
+    Texture2D texture;   
+};
+
 int Game::dogCount = 0;
 int Game::catCount = 0;
 
+std::vector<NamedTexture> images;
+
+static void fillImages() {
+    images.push_back({ "Bichon", LoadTexture("Bichon.png") });
+    images.push_back({ "Bichon2", LoadTexture("Bichon2.png") });
+    images.push_back({ "Poodle", LoadTexture("Poodle.png") });
+    images.push_back({ "Poodle2", LoadTexture("Poodle2.png") });
+    images.push_back({ "Golden Retriever", LoadTexture("Golden Retriever.png") });
+    images.push_back({ "Golden Retriever2", LoadTexture("Golden Retriever2.png") });
+    images.push_back({ "Bulldog", LoadTexture("Bulldog.png") });
+    images.push_back({ "Bulldog2", LoadTexture("Bulldog2.png") });
+    images.push_back({ "Sfinx", LoadTexture("Sfinx.png") });
+    images.push_back({ "Sfinx2", LoadTexture("Sfinx2.png") });
+    images.push_back({ "Persian", LoadTexture("Persian.png") });
+    images.push_back({ "Persian2", LoadTexture("Persian2.png") });
+    images.push_back({ "Siamese", LoadTexture("Siamese.png") });
+    images.push_back({ "Siamese2", LoadTexture("Siamese2.png") });
+}
+
+static int cntHeart = 3;
+
+static void displayHearts(int numberH, Texture2D img) {
+    int x = 50;
+    int y = 20;
+    for (int i = 0; i < numberH; i++) {
+        DrawTexture(img, x, y, WHITE);
+        x += 60;
+    }
+}
+
 int main() {
-     
+    std::srand(std::time(nullptr));
+
 	Dog dog = dog.createDogSafe("", 3, "Large");
     Game game;
         
@@ -56,45 +94,60 @@ int main() {
     }
 	catch (const std::invalid_argument& e) {
 		std::cerr << "Error adding animal: " << e.what() << std::endl;
-	}    
-
-    
+	}      
+   
     GameState currentState = MAIN_MENU;
 
-    InitWindow(800, 800, "Adopt an animal");
+    InitWindow(1600, 800, "Adopt an animal");
 	SetTargetFPS(60);
-	Button dogButton("Dog", 190, 250, 70, 50);
-	Button catButton("Cat", 300, 250, 70, 50);
+    BeginBlendMode(BLEND_ALPHA);
+
+    //imagini pentru joc
+    Texture2D background = LoadTexture("fundal_inceput.jpg");
+    if (background.width == 0 || background.height == 0) {
+        std::cout << "Failed to load background texture!\n";
+    }
+    Texture2D playerTexture = LoadTexture("girl.png");
+    Texture2D treasure = LoadTexture("treasure2.png");
+    Texture2D openTreasure = LoadTexture("open_treasure.png");
+    Texture2D heart = LoadTexture("heart.png");
+
+    fillImages();
+
+
+	Button dogButton("Dog", 700, 350, 70, 50);
+	Button catButton("Cat", 850, 350, 70, 50);
 
 	std::string processName;
     Animal* processAnimal = nullptr;
 
-    Vector2 playerPos = { 50, 750 };  
-    float playerSpeed = 2.0f;
+    Vector2 playerPos = { 750, 380 };  
+    float playerSpeed = 3.0f;
 
-    Rectangle goal = { 700, 50, 40, 40 };
+    Rectangle goal1 = { 50, 650, 70, 70 };
+    Rectangle goal2 = { 1420, 650, 70, 70 };
+    Rectangle goal3 = { 1420, 50, 70, 70 };
+    Rectangle goal4 = { 50, 50, 70, 70 };
 
-    Rectangle obstacle1 = { 400, 300, 30, 30 };
-	Rectangle obstacle2 = { 500, 200, 30, 30 };
-	Rectangle obstacle3 = { 100, 400, 30, 30 };
-	Rectangle obstacle4 = { 200, 200, 30, 30 };
-    Rectangle obstacle5 = { 400, 600, 30, 30 };
+    Rectangle goals[] = { goal1, goal2, goal3, goal4 };
 
+    Rectangle finish;
 
-
-    float timeLimit = 15.0f;    
+    float timeLimit = 40.0f;    
     float timeLeft = timeLimit;
     bool gameOver = false;
     bool playerWon = false;
+    bool addCoins = false;
 
 
     while (!WindowShouldClose()) {
         BeginDrawing();
         ClearBackground(RAYWHITE);
+        DrawTexture(background, 0, 0, WHITE);
 
         switch (currentState) {
             case MAIN_MENU:
-                DrawText("Pick an animal", 190, 200, 20, PURPLE);
+                DrawText("Pick an animal", 650, 200, 50, BLACK);
                 dogButton.Draw();
                 catButton.Draw();
 
@@ -107,7 +160,7 @@ int main() {
                 break;
 
             case DOG_BREEDS: {
-                DrawText("Dog breeds", 190, 100, 20, PURPLE);
+                DrawText("Dog breeds", 700, 200, 30, BLACK);
                 game.displayDogsSpecies();
 
                 Button backButton("Back", 50, 700, 70, 40);
@@ -136,7 +189,7 @@ int main() {
             }
         
             case CAT_BREEDS: {
-                DrawText("Cat breeds", 190, 100, 20, PURPLE);
+                DrawText("Cat breeds", 700, 200, 30, BLACK);
                 game.displayCatsSpecies();
                 Button backButton("Back", 50, 700, 70, 40);
                 backButton.Draw();
@@ -221,6 +274,7 @@ int main() {
                 if (backButton.isPressed()) {
                     currentState = DOG_BREEDS;
                 }
+            
                 break;
             }
         
@@ -277,13 +331,21 @@ int main() {
 				if (processAnimal) {
 					processName = processAnimal->getName();
 					game.displayAnimalSound(processAnimal);
+                    std::string image = processAnimal->getS();
+                    
+                    for (const auto& i : images) {
+                        if (i.name == image) {
+                            DrawTexture(i.texture, 400, 100, WHITE);
+                            break;
+                        }
+                    }
 				}
 				
                 try {
                     char* text = new char[processName.length() + 24];
                     strcpy(text, "You are playing with ");
                     strcat(text, processName.c_str());
-                    DrawText(text, 190, 200, 20, PURPLE);
+                    DrawText(text, 600, 50, 50, BLACK);
                     delete []text;
                 }
                 catch (std::exception& e) {
@@ -293,13 +355,28 @@ int main() {
                 playButton.Draw();
                 if (playButton.isPressed()) {
                     currentState = PLAY;
+                    int final = game.randomNumber(1, 4);
+                    finish = goals[final - 1];
+                    cntHeart = 3;
                 }
+
+                int coints = game.getCoints();
+                std::string text = "Coints: " + std::to_string(coints);
+                DrawText(text.c_str(), 50, 30, 35, BLACK);
+                
 				
                 break;
             }
 
             case PLAY: {
                 ClearBackground(RAYWHITE);
+
+                Vector2 oldPos = playerPos;
+                displayHearts(cntHeart, heart);
+                
+                if (game.isEmptyObstacles()) {
+                    game.generateObstacles(playerPos, 40.0f, 50.0f);
+                }
 
                 if (!gameOver) {
                     if (IsKeyDown(KEY_RIGHT)) playerPos.x += playerSpeed;
@@ -315,63 +392,146 @@ int main() {
                         playerWon = false;
                     }
 
-					// se verifica daca a ajuns la tinta
-                    Rectangle playerRec = { playerPos.x, playerPos.y, 40, 40 };
-                    if (CheckCollisionRecs(playerRec, goal)) {
+
+                   // Texture2D playerTexture = LoadTexture("girl.png");
+                    Rectangle playerRec = { playerPos.x + 20, playerPos.y + 10, 
+                        40, 50};
+
+
+                    if (CheckCollisionRecs(playerRec, finish)) {
                         gameOver = true;
                         playerWon = true;
                     }
+                    else {
+                        game.updateObstacles(goals);
+                    }
 
 					// obstacole
-                    if (CheckCollisionRecs(playerRec, obstacle1) || 
-                        CheckCollisionRecs(playerRec, obstacle2) ||
-                        CheckCollisionRecs(playerRec, obstacle3) ||
-                        CheckCollisionRecs(playerRec, obstacle4) ||
-                        CheckCollisionRecs(playerRec, obstacle5) ){
+                    if ( game.checkColl(playerRec) ){
                         gameOver = true;
                         playerWon = false;
                     }
+
+                    // not to touch the other treasures
+                    for (int i = 0; i < 4; i++) {
+                        Rectangle g = goals[i];
+
+                        if (g.x == finish.x && g.y == finish.y) {
+                            continue;
+                        }
+
+                        if (CheckCollisionRecs(playerRec, g)) {
+                            playerPos = oldPos;
+                            break;
+                        }
+                    }
                 }
-
-                DrawRectangleV(playerPos, { 40, 40 }, BLUE);
-                DrawRectangleRec(goal, GREEN);
-				DrawRectangleRec(obstacle1, RED);
-				DrawRectangleRec(obstacle2, RED);
-				DrawRectangleRec(obstacle3, RED);
-				DrawRectangleRec(obstacle4, RED);
-				DrawRectangleRec(obstacle5, RED);
-
-
+                
+                DrawTextureV(playerTexture, playerPos, WHITE);
+               // DrawTextureV(treasure, {1430, 30}, WHITE);
+                DrawTexture(treasure, goal1.x, goal1.y, WHITE);
+                DrawTexture(treasure, goal2.x, goal2.y, WHITE);
+                DrawTexture(treasure, goal3.x, goal3.y, WHITE);
+                DrawTexture(treasure, goal4.x, goal4.y, WHITE);
+				
+               
+                game.displayRandomObstacles();
+           
                 // timer
-                DrawText(TextFormat("Time: %.2f", timeLeft), 600, 20, 20, BLACK);
+                DrawText(TextFormat("Time: %.2f", timeLeft), 1400, 20, 20, BLACK);
 
                 if (gameOver) {
+                    Button Back("Back", 750, 400, 90, 50);
+                    Back.Draw();
+                    if (Back.isPressed()) {
+                        currentState = PROCESS;
+                        gameOver = false;
+                        playerWon = false;
+                        playerPos = { 750, 380 };
+                        timeLeft = timeLimit;
+                        game.clearObstacles();
+                        addCoins = false;
+                    }
+                    
+
                     if (playerWon) {
+                        if (!addCoins) {
+                            game.addCoints(200);
+                            addCoins = true;
+                        }
+
+                        DrawTexture(openTreasure, finish.x, finish.y, WHITE);
+                        std::string image = processAnimal->getS() + "2";
+
+                        for (const auto& i : images) {
+                            if (i.name == image) {
+                                DrawTexture(i.texture, finish.x + 20, finish.y, WHITE);
+                                break;
+                            }
+                        }
+
 						char* text = new char[processName.length() + 19];
-                        strcpy(text, "You can adopt ");
+                        strcpy(text, "You saved ");
 						if (processAnimal) {
 							processAnimal->setAdopted();
                             strcat(text, processAnimal->getName().c_str());
 						}
 						
-                        DrawText(text, 300, 400, 30, DARKGREEN);
+                        DrawText(text, 700, 300, 50, DARKGREEN);
                         delete[]text;
+
+                        Button replay("Replay", 850, 400, 90, 50);
+                        replay.Draw();
+                        if (replay.isPressed()) {
+                            currentState = PLAY;
+                            gameOver = false;
+                            playerWon = false;
+                            playerPos = { 750, 380 };
+                            timeLeft = timeLimit;
+                            game.clearObstacles();
+                            int final = game.randomNumber(1, 4);
+                            finish = goals[final - 1];
+                            addCoins = false;
+                        }                        
+
                     }
                     else {
                         char* text = new char[processName.length() + 19];
-                        strcpy(text, "You can't adopt ");
+                        strcpy(text, "You didn't save ");
                         strcat(text, processName.c_str());
-                        DrawText(text, 300, 400, 30, RED);
+                        DrawText(text, 650, 300, 50, RED);
 						delete[]text;
+                        
+                        if (cntHeart > 1) {
+                            Button replay("Replay", 850, 400, 90, 50);
+                            replay.Draw();
+                            if (replay.isPressed()) {
+                                currentState = PLAY;
+                                gameOver = false;
+                                playerWon = false;
+                                playerPos = { 750, 380 };
+                                timeLeft = timeLimit;
+                                game.clearObstacles();
+                                int final = game.randomNumber(1, 4);
+                                finish = goals[final - 1];
+                                cntHeart -= 1;
+                            }
+                        }
+                        
                     }
                 }
-
                 break;
             }
 
 		}
 		
         EndDrawing();
+    }
+    UnloadTexture(background);
+    UnloadTexture(playerTexture);
+    UnloadTexture(treasure);
+    for (auto& i : images) {
+        UnloadTexture(i.texture);
     }
 
 	CloseWindow();

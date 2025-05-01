@@ -50,10 +50,10 @@ void Game::displayCats() const{
 
 void Game::displayDogsSpecies() const {
 	if (dogBreedButtons.empty()) {
-		const int startY = 200;
+		const int startY = 300;
 		for (int i = 0; i < dogBreeds.size(); i++) {
 			std::string breed = dogBreeds[i];
-			Button B_breed(breed, 200, startY + i * 60, 200, 40);
+			Button B_breed(breed, 700, startY + i * 60, 200, 40);
 			dogBreedButtons.push_back(B_breed);
 		}
 	}
@@ -65,10 +65,10 @@ void Game::displayDogsSpecies() const {
 
 void Game::displayCatsSpecies() const {
 	if (catBreedButtons.empty()) {
-		const int startY = 200;
+		const int startY = 300;
 		for (int i = 0; i < catBreeds.size(); i++) {
 			std::string breed = catBreeds[i];
-			Button B_breed(breed, 200, startY + i * 60, 200, 40);
+			Button B_breed(breed, 700, startY + i * 60, 200, 40);
 			catBreedButtons.push_back(B_breed);
 		}
 	}
@@ -79,13 +79,13 @@ void Game::displayCatsSpecies() const {
 }
 
 Animal* Game::displayAnimalSpecies(const std::string nameSpecies)  const{
-	DrawText(nameSpecies.c_str(), 190, 200, 20, PURPLE);
-	int startY = 230;
+	DrawText(nameSpecies.c_str(), 620, 200, 50, BLACK);
+	int startY = 260;
 	int i = 0;
 	for (auto* a : this->animals) {
 		if (a->getSpecies() == nameSpecies) {
 			std::string caracteristics = a->display2();
-			Button B_breed(caracteristics, 100, startY + i, 600, 65);
+			Button B_breed(caracteristics, 500, startY + i, 600, 65);
 			B_breed.Draw();
 			i += 70;
 			if (B_breed.isPressed()) {
@@ -105,7 +105,103 @@ std::vector<Button> Game::getDogBreedButtons() const {
 }
 
 void Game::displayAnimalSound(Animal* animal) {
-	DrawText(animal->displaySound().c_str(), 190, 300, 20, PURPLE);  
+	DrawText(animal->displaySound().c_str(), 1000, 300, 30, PURPLE);  
 }
 
 Game::~Game() {}
+
+int Game::randomNumber(int min, int max) const {
+	return min + rand() % (max - min + 1); // Ensure the range is inclusive
+}
+
+void Game::displayRandomObstacles() const {
+	for (auto& obst : obstacles) {
+		DrawRectangleRec(obst, RED);
+	}
+}
+
+bool Game::checkColl(const Rectangle playerRec) const {
+	for (const auto& obst : obstacles) {
+		if (CheckCollisionRecs(playerRec, obst)) {
+			return true;
+		}
+	}
+	return false;
+}
+
+void Game::generateObstacles(Vector2 playerPos, float playerWidth, float playerHeight) {
+	int numberObstacles = randomNumber(5, 10);
+	obstacles.clear();
+
+	Rectangle playerRec = { playerPos.x + 20, playerPos.y + 10, playerWidth, playerHeight };
+
+	int generated = 0;
+	int minX = 200;
+	int maxX = 300;
+	const int minY = 100;
+	const int maxY = 700;
+	while (generated < numberObstacles) {
+		Rectangle aux = { randomNumber(minX, maxX), randomNumber(minY, maxY), 30, 30 };
+
+		bool overlaps = false;
+		for (const auto& obst : obstacles) {
+			if (CheckCollisionRecs(aux, obst)) {
+				overlaps = true;
+				break;
+			}
+		}
+		//!CheckCollisionRecs(playerRec, aux)
+		if ((aux.x < playerRec.x - 100 || aux.x > playerRec.x + 100) &&
+			(aux.y < playerRec.y - 100 || aux.y > playerRec.y + 100) && 
+			!overlaps) {
+			obstacles.push_back(aux);
+
+			float velX = randomNumber(-100, 100) / 60.0f; 
+			float velY = randomNumber(-100, 100) / 60.0f;
+			obstacleVelocities.push_back({ velX, velY });
+
+			generated++;
+			minX += 150;
+			maxX += 300;
+			
+		}
+	}
+}
+
+bool Game::isEmptyObstacles() const {
+	return obstacles.empty();
+}
+
+void Game::clearObstacles() const {
+	this->obstacles.clear();
+}
+
+void Game::updateObstacles(const Rectangle goals[]) const {
+	for (int i = 0; i < obstacles.size(); i++) {
+		obstacles[i].x += obstacleVelocities[i].x;
+		obstacles[i].y += obstacleVelocities[i].y;
+
+		for (int j = 0; j < 4; j ++) {
+			if (CheckCollisionRecs(obstacles[i], goals[j])) {
+				obstacleVelocities[i].x *= -1;
+				obstacleVelocities[i].y *= -1;
+			}
+		}
+
+		if (obstacles[i].x < 0 || obstacles[i].x + obstacles[i].width > 1600) {
+			obstacleVelocities[i].x *= -1;
+		}
+		if (obstacles[i].y < 0 || obstacles[i].y + obstacles[i].height > 800) {
+			obstacleVelocities[i].y *= -1;
+		}
+
+	}
+}
+
+void Game::addCoints(const int points) {
+	this->coints += points;
+}
+
+int Game::getCoints() const{
+	return this->coints;
+}

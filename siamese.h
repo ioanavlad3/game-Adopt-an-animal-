@@ -8,5 +8,5 @@ class Siamese : public Cat {
 		Siamese(std::string name, int age);
 		Siamese(const Cat& nou);
 		Siamese& operator = (const Siamese& nou);
-		//void makeSound() override;
+		std::string displaySound() override;
 };

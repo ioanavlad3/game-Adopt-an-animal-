@@ -9,6 +9,7 @@ class Game {
 	private:
 		static int dogCount;
 		static int catCount;
+		int coints = 0;
 		std::vector<Animal*> animals;  
 		std::vector<Dog*> dogs;  
 		std::vector<Cat*> cats;  
@@ -18,6 +19,8 @@ class Game {
 			"Siamese", "Sfinx", "Persian" };
 		mutable std::vector<Button> catBreedButtons;
 		mutable std::vector<Button> dogBreedButtons;
+		mutable std::vector<Rectangle> obstacles;
+		mutable std::vector<Vector2> obstacleVelocities;
 
 	public:
 		Game();
@@ -33,6 +36,19 @@ class Game {
 		std::vector<Button> getCatBreedButtons() const;
 		Animal* displayAnimalSpecies(const std::string nameSpecies) const;
 
+		int randomNumber(int min, int max) const;
+		void displayRandomObstacles() const;
+
 		void displayAnimalSound(Animal* animal);
+		bool checkColl(const Rectangle playerRec) const;
+		void generateObstacles(Vector2 playerPos, float playerWidth, float playerHeight);
+
+		bool isEmptyObstacles() const;
+		void clearObstacles() const;
+		void updateObstacles(const Rectangle goals[]) const;
+
+		void addCoints(const int points);
+		int getCoints() const;
+		
 };
 

@@ -70,3 +70,7 @@ std::string Animal::getName() const {
 void Animal::setAdopted() {
 	this->isAdopted = true;
 }
+
+std::string Animal::getS() const {
+    return this->species;
+}
