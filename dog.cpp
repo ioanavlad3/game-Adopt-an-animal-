@@ -80,8 +80,9 @@ std::string Dog::getSizeBySpecies(const std::string species) {
 		return "Small";
 	}
 	else {
-		return "Unknown"; 
+		throw SpeciesNotFoundException(species);
 	}
+	
 }
 
 Dog Dog::createDogSafe(const std::string name, int age, const std::string species) {

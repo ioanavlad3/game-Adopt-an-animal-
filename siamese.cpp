@@ -24,5 +24,5 @@ Siamese& Siamese::operator=(const Siamese& nou) {
 }
 
 std::string Siamese::displaySound() {
-	return this->name + " says Mrrrr";
+	return this->name + " says: Mrrrr";
 }

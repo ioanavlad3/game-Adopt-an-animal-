@@ -133,13 +133,13 @@ void Game::generateObstacles(Vector2 playerPos, float playerWidth, float playerH
 	int numberObstacles = randomNumber(5, 10);
 	obstacles.clear();
 
-	Rectangle playerRec = { playerPos.x + 20, playerPos.y + 10, playerWidth, playerHeight };
+	Rectangle playerRec = { playerPos.x + 25, playerPos.y + 15, playerWidth, playerHeight };
 
 	int generated = 0;
 	int minX = 200;
 	int maxX = 300;
-	const int minY = 100;
-	const int maxY = 700;
+	const int minY = 180;
+	const int maxY = 600;
 	while (generated < numberObstacles) {
 		Rectangle aux = { randomNumber(minX, maxX), randomNumber(minY, maxY), 30, 30 };
 
@@ -204,4 +204,18 @@ void Game::addCoints(const int points) {
 
 int Game::getCoints() const{
 	return this->coints;
+}
+
+std::string Game::boyOrGirl(const std::string name) const {
+	if (!name.empty()) {
+		char lastChar = name.back(); 
+
+		if ((lastChar == 'a' && name != "Mihnea") ||
+			(name == "Carmen" || name == "Yasmin")) {
+			return "girl";
+		}
+	}
+
+	return "boy";
+
 }

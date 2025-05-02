@@ -50,5 +50,6 @@ class Game {
 		void addCoints(const int points);
 		int getCoints() const;
 		
+		std::string boyOrGirl(const std::string name) const;
 };
 

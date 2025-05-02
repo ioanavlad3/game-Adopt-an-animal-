@@ -14,10 +14,10 @@
 #include <exception>
 #include <stdexcept> 
 #include <ctime>
-
+#define MAX_LENGTH_NAME 15 
 
 enum GameState {
-    MAIN_MENU, PLAY, DOG_BREEDS, CAT_BREEDS, GOLDEN_RETRIEVER, BULLDOG, 
+    NAME, MAIN_MENU, PLAY, DOG_BREEDS, CAT_BREEDS, GOLDEN_RETRIEVER, BULLDOG, 
     POODLE, BICHON, SIAMESE, SFINX, PERSIAN, PROCESS
 };
 
@@ -62,7 +62,8 @@ static void displayHearts(int numberH, Texture2D img) {
 int main() {
     std::srand(std::time(nullptr));
 
-	Dog dog = dog.createDogSafe("", 3, "Large");
+	Dog dog = dog.createDogSafe("", 3, "Bichon");
+    Dog d1 = dog.createDogSafe("Buna", 1, "Labrador");
     Game game;
         
     Bichon b = dog.createDogSafe("Bella", 2, "Bichon");
@@ -72,6 +73,8 @@ int main() {
 	Bulldog bulldog = dog.createDogSafe("Max", 3, "Bulldog");
 	GoldenRetriever golden = dog.createDogSafe("Rex", 5, "Golden Retriever");
 
+    
+
     Cat cat = cat.createCatSafe("Felix", 1);
 	Cat cat1 = cat.createCatSafe("Mittens", 2);
     Siamese s = cat.createCatSafe("Tom", 3);
@@ -80,6 +83,8 @@ int main() {
 	Persian pers = cat.createCatSafe("Whiskers",  1);
     
     try { 
+        game.addAnimal(&dog);
+        game.addAnimal(&d1);
         game.addAnimal(&b);
 		game.addAnimal(&b1);
         game.addAnimal(&pud1);
@@ -96,7 +101,7 @@ int main() {
 		std::cerr << "Error adding animal: " << e.what() << std::endl;
 	}      
    
-    GameState currentState = MAIN_MENU;
+    GameState currentState = NAME;
 
     InitWindow(1600, 800, "Adopt an animal");
 	SetTargetFPS(60);
@@ -107,7 +112,8 @@ int main() {
     if (background.width == 0 || background.height == 0) {
         std::cout << "Failed to load background texture!\n";
     }
-    Texture2D playerTexture = LoadTexture("girl.png");
+    Texture2D girl = LoadTexture("girl.png");
+    Texture2D boy = LoadTexture("boy.png");
     Texture2D treasure = LoadTexture("treasure2.png");
     Texture2D openTreasure = LoadTexture("open_treasure.png");
     Texture2D heart = LoadTexture("heart.png");
@@ -138,6 +144,8 @@ int main() {
     bool gameOver = false;
     bool playerWon = false;
     bool addCoins = false;
+    std::string savePlayerName;
+    std::string gender;
 
 
     while (!WindowShouldClose()) {
@@ -146,6 +154,57 @@ int main() {
         DrawTexture(background, 0, 0, WHITE);
 
         switch (currentState) {
+            case NAME: {
+                DrawText("Insert your name: ", 600, 200, 50, BLACK);
+
+                static std::string playerName = "";
+                static bool textBoxActive = false;
+                Rectangle textBox = { 600, 300, 400, 50 };
+
+                // draw the text box
+                DrawRectangleLines(textBox.x, textBox.y, textBox.width, textBox.height, BLACK);
+                DrawText(playerName.c_str(), textBox.x + 5, textBox.y + 15, 30, BLACK);
+
+                // Detect if mouse clicked inside text box (activate)
+                if (CheckCollisionPointRec(GetMousePosition(), textBox)) {
+                    if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+                        textBoxActive = true;
+                    }
+                }
+                else if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+                    textBoxActive = false;
+                }
+
+                // If active, capture keyboard input
+                if (textBoxActive) {
+                    int key = GetCharPressed();
+                    while (key > 0) {
+                        if ((key >= 32) && (key <= 125)) {
+                            if (playerName.length() < MAX_LENGTH_NAME) {  
+                                playerName += (char)key;
+                            }
+                        }
+                        key = GetCharPressed();
+                    }
+
+                    // Backspace
+                    if (IsKeyPressed(KEY_BACKSPACE) && !playerName.empty()) {
+                        playerName.pop_back();
+                    }
+                }
+
+                
+                Button next("Next", 600, 400, 70, 40);
+                next.Draw();
+                if (next.isPressed()) {
+                    savePlayerName = playerName;  
+                    playerName = "";           // reset for next time
+                    currentState = MAIN_MENU;
+                }
+                gender = game.boyOrGirl(savePlayerName);
+                break;
+            }
+
             case MAIN_MENU:
                 DrawText("Pick an animal", 650, 200, 50, BLACK);
                 dogButton.Draw();
@@ -353,12 +412,18 @@ int main() {
                 }
                 Button playButton("Play", 250, 400, 90, 50);
                 playButton.Draw();
-                if (playButton.isPressed()) {
-                    currentState = PLAY;
-                    int final = game.randomNumber(1, 4);
-                    finish = goals[final - 1];
-                    cntHeart = 3;
+                if (cntHeart >= 1) {
+                    if (playButton.isPressed()) {
+                        currentState = PLAY;
+                        int final = game.randomNumber(1, 4);
+                        finish = goals[final - 1];
+                        //cntHeart = 3;
+                    }
                 }
+                /*else {
+
+                }*/
+                
 
                 int coints = game.getCoints();
                 std::string text = "Coints: " + std::to_string(coints);
@@ -392,8 +457,6 @@ int main() {
                         playerWon = false;
                     }
 
-
-                   // Texture2D playerTexture = LoadTexture("girl.png");
                     Rectangle playerRec = { playerPos.x + 20, playerPos.y + 10, 
                         40, 50};
 
@@ -426,9 +489,13 @@ int main() {
                         }
                     }
                 }
+                if (gender == "girl") {
+                    DrawTextureV(girl, playerPos, WHITE);
+                }
+                else {
+                    DrawTextureV(boy, playerPos, WHITE);
+                }
                 
-                DrawTextureV(playerTexture, playerPos, WHITE);
-               // DrawTextureV(treasure, {1430, 30}, WHITE);
                 DrawTexture(treasure, goal1.x, goal1.y, WHITE);
                 DrawTexture(treasure, goal2.x, goal2.y, WHITE);
                 DrawTexture(treasure, goal3.x, goal3.y, WHITE);
@@ -445,6 +512,9 @@ int main() {
                     Back.Draw();
                     if (Back.isPressed()) {
                         currentState = PROCESS;
+                        if (!playerWon) {
+                            cntHeart -= 1;
+                        }
                         gameOver = false;
                         playerWon = false;
                         playerPos = { 750, 380 };
@@ -517,6 +587,21 @@ int main() {
                                 cntHeart -= 1;
                             }
                         }
+                        else if (cntHeart == 1) {
+                            Button buy("Buy 1 heart for 100 coints", 850, 400, 350, 50);
+                            buy.Draw();
+                            if (buy.isPressed()) {
+                                game.addCoints(-100);
+                                currentState = PLAY;
+                                gameOver = false;
+                                playerWon = false;
+                                playerPos = { 750, 380 };
+                                timeLeft = timeLimit;
+                                game.clearObstacles();
+                                int final = game.randomNumber(1, 4);
+                                finish = goals[final - 1];
+                            }
+                        }
                         
                     }
                 }
@@ -528,7 +613,8 @@ int main() {
         EndDrawing();
     }
     UnloadTexture(background);
-    UnloadTexture(playerTexture);
+    UnloadTexture(girl);
+    UnloadTexture(boy);
     UnloadTexture(treasure);
     for (auto& i : images) {
         UnloadTexture(i.texture);

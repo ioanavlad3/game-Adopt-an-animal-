@@ -74,3 +74,7 @@ https://www.tutorialspoint.com/cplusplus/cpp_enumeration.htm
 
 De aici m-am inspirat cum sa misc in camera un obiect:
 https://www.reddit.com/r/raylib/comments/1hs4pg7/trying_to_add_camera_tracking_that_moves_with_the
+
+
+Pentru a insera un text:
+https://www.raylib.com/examples/text/loader.html?name=text_input_box 
