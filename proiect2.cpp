@@ -117,6 +117,7 @@ int main() {
     Texture2D treasure = LoadTexture("treasure2.png");
     Texture2D openTreasure = LoadTexture("open_treasure.png");
     Texture2D heart = LoadTexture("heart.png");
+    Texture2D sadFace = LoadTexture("sadFace.png");
 
     fillImages();
 
@@ -390,7 +391,7 @@ int main() {
 				if (processAnimal) {
 					processName = processAnimal->getName();
 					game.displayAnimalSound(processAnimal);
-                    std::string image = processAnimal->getS();
+                    std::string image = processAnimal->getSpecies();
                     
                     for (const auto& i : images) {
                         if (i.name == image) {
@@ -410,23 +411,25 @@ int main() {
                 catch (std::exception& e) {
 					std::cout << "Error: " << e.what() << std::endl;
                 }
-                Button playButton("Play", 250, 400, 90, 50);
-                playButton.Draw();
+                
                 if (cntHeart >= 1) {
+                    Button playButton("Play", 250, 400, 90, 50);
+                    playButton.Draw();
                     if (playButton.isPressed()) {
                         currentState = PLAY;
                         int final = game.randomNumber(1, 4);
                         finish = goals[final - 1];
-                        //cntHeart = 3;
+                        
                     }
                 }
-                /*else {
+                else {
+                    DrawText("You don't have enough lives to play!", 150, 400, 20, RED);
+                    DrawTexture(sadFace, 300, 450, WHITE);
+                }
+                                
 
-                }*/
-                
-
-                int coints = game.getCoints();
-                std::string text = "Coints: " + std::to_string(coints);
+                int coins = game.getCoins();
+                std::string text = "Coins: " + std::to_string(coins);
                 DrawText(text.c_str(), 50, 30, 35, BLACK);
                 
 				
@@ -475,7 +478,7 @@ int main() {
                         playerWon = false;
                     }
 
-                    // not to touch the other treasures
+                    // evitarea atingerii altor obstacole
                     for (int i = 0; i < 4; i++) {
                         Rectangle g = goals[i];
 
@@ -487,6 +490,11 @@ int main() {
                             playerPos = oldPos;
                             break;
                         }
+                    }
+
+                    if (playerPos.x + 60 >= 1600 || playerPos.x + 25 <= 0 ||
+                        playerPos.y + 90 >= 800 || playerPos.y + 10 <= 0) {
+                        playerPos = oldPos;
                     }
                 }
                 if (gender == "girl") {
@@ -526,12 +534,12 @@ int main() {
 
                     if (playerWon) {
                         if (!addCoins) {
-                            game.addCoints(200);
+                            game.addCoins(200);
                             addCoins = true;
                         }
 
                         DrawTexture(openTreasure, finish.x, finish.y, WHITE);
-                        std::string image = processAnimal->getS() + "2";
+                        std::string image = processAnimal->getSpecies() + "2";
 
                         for (const auto& i : images) {
                             if (i.name == image) {
@@ -587,11 +595,11 @@ int main() {
                                 cntHeart -= 1;
                             }
                         }
-                        else if (cntHeart == 1) {
-                            Button buy("Buy 1 heart for 100 coints", 850, 400, 350, 50);
+                        else if (cntHeart == 1 && game.getCoins() >= 100 ) {
+                            Button buy("Buy 1 heart for 100 coins", 850, 400, 320, 50);
                             buy.Draw();
                             if (buy.isPressed()) {
-                                game.addCoints(-100);
+                                game.addCoins(-100);
                                 currentState = PLAY;
                                 gameOver = false;
                                 playerWon = false;
@@ -619,6 +627,7 @@ int main() {
     for (auto& i : images) {
         UnloadTexture(i.texture);
     }
+    UnloadTexture(sadFace);
 
 	CloseWindow();
 

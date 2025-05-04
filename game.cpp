@@ -188,30 +188,31 @@ void Game::updateObstacles(const Rectangle goals[]) const {
 			}
 		}
 
-		if (obstacles[i].x < 0 || obstacles[i].x + obstacles[i].width > 1600) {
+		if (obstacles[i].x < 0 || obstacles[i].x + obstacles[i].width >= 1600) {
 			obstacleVelocities[i].x *= -1;
 		}
-		if (obstacles[i].y < 0 || obstacles[i].y + obstacles[i].height > 800) {
+		if (obstacles[i].y < 0 || obstacles[i].y + obstacles[i].height >= 800) {
 			obstacleVelocities[i].y *= -1;
 		}
 
 	}
 }
 
-void Game::addCoints(const int points) {
-	this->coints += points;
+void Game::addCoins(const int points) {
+	this->coins += points;
 }
 
-int Game::getCoints() const{
-	return this->coints;
+int Game::getCoins() const{
+	return this->coins;
 }
 
 std::string Game::boyOrGirl(const std::string name) const {
 	if (!name.empty()) {
 		char lastChar = name.back(); 
 
-		if ((lastChar == 'a' && name != "Mihnea") ||
-			(name == "Carmen" || name == "Yasmin")) {
+		if ((lastChar == 'a' && (name != "Mihnea" && name != "mihnea")) ||
+			(name == "Carmen" || name == "carmen" || 
+			 name == "Yasmin" || name == "yasmin")) {
 			return "girl";
 		}
 	}

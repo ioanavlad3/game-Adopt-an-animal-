@@ -9,7 +9,7 @@ class Game {
 	private:
 		static int dogCount;
 		static int catCount;
-		int coints = 0;
+		int coins = 0;
 		std::vector<Animal*> animals;  
 		std::vector<Dog*> dogs;  
 		std::vector<Cat*> cats;  
@@ -47,8 +47,8 @@ class Game {
 		void clearObstacles() const;
 		void updateObstacles(const Rectangle goals[]) const;
 
-		void addCoints(const int points);
-		int getCoints() const;
+		void addCoins(const int points);
+		int getCoins() const;
 		
 		std::string boyOrGirl(const std::string name) const;
 };

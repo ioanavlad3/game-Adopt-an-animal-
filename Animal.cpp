@@ -71,6 +71,6 @@ void Animal::setAdopted() {
 	this->isAdopted = true;
 }
 
-std::string Animal::getS() const {
-    return this->species;
-}
+//std::string Animal::getS() const {
+//    return this->species;
+//}
