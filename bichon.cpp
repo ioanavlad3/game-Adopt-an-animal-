@@ -37,13 +37,3 @@ std::string Bichon::getSpecies() const {
 	return this->species;
 }
 
-//Bichon Bichon::createDogSafe(const std::string& name, int age, const std::string& size) {
-//	try {
-//		Bichon d(name, age);
-//		return d;
-//	}
-//	catch (const AnimalException& e) {
-//		std::cerr << "Error creating Bichon: " << e.what() << std::endl;
-//		return Bichon();
-//	}
-//}

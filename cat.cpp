@@ -11,7 +11,7 @@ Cat::Cat(std::string name, int age, std::vector<std::string> costumTraits) :
 	Animal(name, "Cat", false, age, "Small", { "Possesive" }) {
 	if (age < 0) throw InvalidAgeException(age);
 	if (name == "") throw EmptyNameException();
-	//this->traits.push_back("Possesive");
+	
 	for (const auto& t : costumTraits) {
 		this->traits.push_back(t);
 	}

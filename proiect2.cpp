@@ -68,16 +68,21 @@ int main() {
         
     Bichon b = dog.createDogSafe("Bella", 2, "Bichon");
 	Bichon b1 = dog.createDogSafe("Luna", -1, "Bichon");
+    Bichon b2 = dog.createDogSafe("Pluto", 3, "Bichon");
     Poodle pud1 = dog.createDogSafe("Olive", 4, "Poodle");
     Poodle pud = dog.createDogSafe("Gracie", 2, "Poodle", { "Cute" });
+    Poodle p2 = dog.createDogSafe("Charlie", 1, "Poodle");
 	Bulldog bulldog = dog.createDogSafe("Max", 3, "Bulldog");
+    Bulldog bull1 = dog.createDogSafe("Rocky", 4, "Bulldog");
 	GoldenRetriever golden = dog.createDogSafe("Rex", 5, "Golden Retriever");
-
+    GoldenRetriever g1 = dog.createDogSafe("Milo", 3, "Golden Retriever");
     
 
     Cat cat = cat.createCatSafe("Felix", 1);
 	Cat cat1 = cat.createCatSafe("Mittens", 2);
     Siamese s = cat.createCatSafe("Tom", 3);
+    Siamese s2 = cat.createCatSafe("Leo", 1, { "Adventurous" });
+    Siamese s3 = cat.createCatSafe("Bella", 2);
 	Sfinx sfinx = cat.createCatSafe("Jerry", 2, { "Curious" });
 	Sfinx sfinx2 = cat.createCatSafe("Mittens", 4);
 	Persian pers = cat.createCatSafe("Whiskers",  1);
@@ -87,12 +92,18 @@ int main() {
         game.addAnimal(&d1);
         game.addAnimal(&b);
 		game.addAnimal(&b1);
+        game.addAnimal(&b2);
         game.addAnimal(&pud1);
         game.addAnimal(&pud);
+        game.addAnimal(&p2);
         game.addAnimal(&bulldog);
+        game.addAnimal(&bull1);
         game.addAnimal(&golden);
+        game.addAnimal(&g1);
         game.addAnimal(&cat1);
         game.addAnimal(&s);
+        game.addAnimal(&s2);
+        game.addAnimal(&s3);
         game.addAnimal(&sfinx);
         game.addAnimal(&sfinx2);
         game.addAnimal(&pers);
@@ -140,7 +151,7 @@ int main() {
 
     Rectangle finish;
 
-    float timeLimit = 40.0f;    
+    float timeLimit = 30.0f;    
     float timeLeft = timeLimit;
     bool gameOver = false;
     bool playerWon = false;
@@ -162,11 +173,11 @@ int main() {
                 static bool textBoxActive = false;
                 Rectangle textBox = { 600, 300, 400, 50 };
 
-                // draw the text box
+                //desenez casuta
                 DrawRectangleLines(textBox.x, textBox.y, textBox.width, textBox.height, BLACK);
                 DrawText(playerName.c_str(), textBox.x + 5, textBox.y + 15, 30, BLACK);
 
-                // Detect if mouse clicked inside text box (activate)
+                // detecteaza daca mouse-ul atinge casuta
                 if (CheckCollisionPointRec(GetMousePosition(), textBox)) {
                     if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
                         textBoxActive = true;
@@ -176,7 +187,7 @@ int main() {
                     textBoxActive = false;
                 }
 
-                // If active, capture keyboard input
+                // daca e activat, retine ce se scrie
                 if (textBoxActive) {
                     int key = GetCharPressed();
                     while (key > 0) {
@@ -199,7 +210,7 @@ int main() {
                 next.Draw();
                 if (next.isPressed()) {
                     savePlayerName = playerName;  
-                    playerName = "";           // reset for next time
+                    playerName = "";           // resetare
                     currentState = MAIN_MENU;
                 }
                 gender = game.boyOrGirl(savePlayerName);

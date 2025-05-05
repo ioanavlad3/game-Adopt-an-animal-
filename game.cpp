@@ -111,7 +111,7 @@ void Game::displayAnimalSound(Animal* animal) {
 Game::~Game() {}
 
 int Game::randomNumber(int min, int max) const {
-	return min + rand() % (max - min + 1); // Ensure the range is inclusive
+	return min + rand() % (max - min + 1); 
 }
 
 void Game::displayRandomObstacles() const {
@@ -140,6 +140,7 @@ void Game::generateObstacles(Vector2 playerPos, float playerWidth, float playerH
 	int maxX = 300;
 	const int minY = 180;
 	const int maxY = 600;
+
 	while (generated < numberObstacles) {
 		Rectangle aux = { randomNumber(minX, maxX), randomNumber(minY, maxY), 30, 30 };
 
@@ -150,7 +151,7 @@ void Game::generateObstacles(Vector2 playerPos, float playerWidth, float playerH
 				break;
 			}
 		}
-		//!CheckCollisionRecs(playerRec, aux)
+		
 		if ((aux.x < playerRec.x - 100 || aux.x > playerRec.x + 100) &&
 			(aux.y < playerRec.y - 100 || aux.y > playerRec.y + 100) && 
 			!overlaps) {
@@ -181,13 +182,14 @@ void Game::updateObstacles(const Rectangle goals[]) const {
 		obstacles[i].x += obstacleVelocities[i].x;
 		obstacles[i].y += obstacleVelocities[i].y;
 
+		// daca se loveste de un cufar sa il ocoleasca
 		for (int j = 0; j < 4; j ++) {
 			if (CheckCollisionRecs(obstacles[i], goals[j])) {
 				obstacleVelocities[i].x *= -1;
 				obstacleVelocities[i].y *= -1;
 			}
 		}
-
+		// sa nu iasa din ecran
 		if (obstacles[i].x < 0 || obstacles[i].x + obstacles[i].width >= 1600) {
 			obstacleVelocities[i].x *= -1;
 		}

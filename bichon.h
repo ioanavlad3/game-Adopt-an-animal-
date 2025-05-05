@@ -11,6 +11,5 @@ class Bichon : public Dog {
         void makeSound() override;
         std::string displaySound() override;
 		std::string getSpecies() const;
-		/*Bichon createDogSafe(const std::string& name, int age, 
-                                const std::string& size) override;*/
+		
 };

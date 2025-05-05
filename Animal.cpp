@@ -55,7 +55,8 @@ std::string Animal::display2() const {
     for (const auto& t : this->traits) {
         caracteristics += t + " ";
     }
-    return "Name:\t" + this->name + ",\tAge: " + std::to_string(this->age) + ",\tSize: " + this->size
+    return "Name:\t" + this->name + ",\tAge: " + 
+        std::to_string(this->age) + ",\tSize: " + this->size
         + "\n" + caracteristics;
 }
 
@@ -71,6 +72,3 @@ void Animal::setAdopted() {
 	this->isAdopted = true;
 }
 
-//std::string Animal::getS() const {
-//    return this->species;
-//}
