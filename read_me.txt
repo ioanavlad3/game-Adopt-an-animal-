@@ -2,13 +2,13 @@ Vlad Ioana Gabriela, grupa 132
 GitHub: https://github.com/ioanavlad3/game-Adopt-an-animal-
 
 Proiect "Adapost de animale"
-La adapost vin vizitatori care doresc sa isi gaseasca un animal de companie. 
-Ei au anumite criterii pentru animalul lor:
+La adapost vin vizitatori care doresc sa isi gaseasca un animal de companie.
+Utilizatorul isi instroduce numele si incepe cautarea animalului de companie.  
+El are anumite criterii pentru animalul lui:
 ce animal sa fie (caine, pisica), rasa lui, varsta si caracteristici ale 
 animalului (prietenos, cuminte, etc).
-Daca s-a gasit o compatibilitate, vizitatorul poate sa se joace putin cu animalul respectiv:
-trebuie sa parcurga o matrice fara sa intre in coliziuni si sa nu se scurga tot timpul.  
-Daca s-a realizat jocul cu succes, atunci il poate lua acasa.
+Daca s-a gasit o compatibilitate, vizitatorul adopta animalul si se poate juca cu el:
+am creat un joc unde animalul este ascuns aleatoriu in spatele unui cufar (unul din cele 4 cufere de pe ecran), iar stapanul trebuie sa-l gaseasa in timp util (sa nu se scurga timpul ) si sa nu se loveasa de obstacole. De asemenea, numarul de obstacole este creat aleatoriu si ele sunt puse aleatoriu pe ecran. Daca stapanul castiga jocul atunci primeste 200 de banuti. Stapanul are dreptul la 3 incercari pentru a-si salva animalul de companie, iar daca le pierde, la final, poate cumpara o viata pentru 100 de banuti (doar daca are minim aceasta suma), altfel nu se mai poate juca.
 
 Clase:
     Animal:
@@ -56,8 +56,11 @@ Game:
 	Am creat o functie addAnimal care adauga un animal in functie de tipul lui 
 	(caine sau pisica), ajutandu-ma de dynamic_cast.
 	Am creat o functie care afiseaza animalele in functie de rasa lor, afiseaza 
-caracteristicile fiecarui animal, iar daca este apasat un buton, se va afisa animalul
-	corespunzator rasei respective.
+caracteristicile fiecarui animal, iar daca este apasat un buton, se va afisa animalul corespunzator rasei respective.
+        Am creat o functie care returneaza un numar aleatoriu care se afla intr-un interval anume.
+	Am creat o functie care creeaza un numar aleatoriu de obstacole si le pune tot aleatoriu pe ecran. De asemenea, fiecare obstacol are si o viteza cu care se misca.
+	Am creat o functie care da update obstacolelor sa se tot miste.
+	Am creat o functie care sa deteteze daca utilizatorul este fata sau baiat in functie de numele sau. 
 
 
 Bibliografie:

@@ -1,4 +1,29 @@
-﻿  button.cpp
+﻿  proiect2.cpp
+C:\Users\ioana\Desktop\Unibuc\POO\New folder\proiect2.cpp(63,25): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\ioana\Desktop\Unibuc\POO\New folder\proiect2.cpp(177,80): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\ioana\Desktop\Unibuc\POO\New folder\proiect2.cpp(177,65): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\ioana\Desktop\Unibuc\POO\New folder\proiect2.cpp(177,54): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\ioana\Desktop\Unibuc\POO\New folder\proiect2.cpp(177,43): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\ioana\Desktop\Unibuc\POO\New folder\proiect2.cpp(178,71): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\ioana\Desktop\Unibuc\POO\New folder\proiect2.cpp(178,56): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\ioana\Desktop\Unibuc\POO\New folder\proiect2.cpp(520,53): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\ioana\Desktop\Unibuc\POO\New folder\proiect2.cpp(520,44): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\ioana\Desktop\Unibuc\POO\New folder\proiect2.cpp(521,53): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\ioana\Desktop\Unibuc\POO\New folder\proiect2.cpp(521,44): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\ioana\Desktop\Unibuc\POO\New folder\proiect2.cpp(522,53): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\ioana\Desktop\Unibuc\POO\New folder\proiect2.cpp(522,44): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\ioana\Desktop\Unibuc\POO\New folder\proiect2.cpp(523,53): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\ioana\Desktop\Unibuc\POO\New folder\proiect2.cpp(523,44): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\ioana\Desktop\Unibuc\POO\New folder\proiect2.cpp(554,67): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\ioana\Desktop\Unibuc\POO\New folder\proiect2.cpp(554,57): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\ioana\Desktop\Unibuc\POO\New folder\proiect2.cpp(559,77): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\ioana\Desktop\Unibuc\POO\New folder\proiect2.cpp(559,65): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\ioana\Desktop\Unibuc\POO\New folder\proiect2.cpp(419,21): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\ioana\Desktop\Unibuc\POO\New folder\proiect2.cpp(420,21): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\ioana\Desktop\Unibuc\POO\New folder\proiect2.cpp(565,25): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\ioana\Desktop\Unibuc\POO\New folder\proiect2.cpp(568,29): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\ioana\Desktop\Unibuc\POO\New folder\proiect2.cpp(591,25): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\ioana\Desktop\Unibuc\POO\New folder\proiect2.cpp(592,25): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   proiect.vcxproj -> C:\Users\ioana\Desktop\Unibuc\POO\New folder\x64\Debug\proiect.exe
   'pwsh.exe' is not recognized as an internal or external command,
   operable program or batch file.

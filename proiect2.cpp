@@ -400,6 +400,8 @@ int main() {
 
             case PROCESS: {
 				if (processAnimal) {
+                    // daca un animal a fost ales, se seteaza ca adoptat
+                    processAnimal->setAdopted();
 					processName = processAnimal->getName();
 					game.displayAnimalSound(processAnimal);
                     std::string image = processAnimal->getSpecies();
