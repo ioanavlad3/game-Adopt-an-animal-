@@ -66,6 +66,9 @@
     <ClCompile Include="EmptyNameException.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Statistici.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animal.h">
@@ -417,6 +420,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="EmptyNameException.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Circle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Statistici.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Produs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Cufar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CufarFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

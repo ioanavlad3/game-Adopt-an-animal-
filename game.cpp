@@ -116,7 +116,8 @@ int Game::randomNumber(int min, int max) const {
 
 void Game::displayRandomObstacles() const {
 	for (auto& obst : obstacles) {
-		DrawRectangleRec(obst, RED);
+		//DrawRectangleRec(obst, RED);
+		DrawCircle(obst.x, obst.y, 20, RED);
 	}
 }
 
@@ -133,7 +134,7 @@ void Game::generateObstacles(Vector2 playerPos, float playerWidth, float playerH
 	int numberObstacles = randomNumber(5, 10);
 	obstacles.clear();
 
-	Rectangle playerRec = { playerPos.x + 25, playerPos.y + 15, playerWidth, playerHeight };
+	Rectangle playerRec = { playerPos.x /*+ 25*/, playerPos.y /*+ 15*/, playerWidth, playerHeight };
 
 	int generated = 0;
 	int minX = 200;
@@ -142,7 +143,8 @@ void Game::generateObstacles(Vector2 playerPos, float playerWidth, float playerH
 	const int maxY = 600;
 
 	while (generated < numberObstacles) {
-		Rectangle aux = { randomNumber(minX, maxX), randomNumber(minY, maxY), 30, 30 };
+		Rectangle aux = { randomNumber(minX, maxX), randomNumber(minY, maxY), 20, 20 };
+		
 
 		bool overlaps = false;
 		for (const auto& obst : obstacles) {
@@ -150,6 +152,7 @@ void Game::generateObstacles(Vector2 playerPos, float playerWidth, float playerH
 				overlaps = true;
 				break;
 			}
+			//if (CheckCollisionCircleV(obst.center, obst.radius, obst))
 		}
 		
 		if ((aux.x < playerRec.x - 100 || aux.x > playerRec.x + 100) &&

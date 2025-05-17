@@ -14,12 +14,11 @@
 #include <exception>
 #include <stdexcept> 
 #include <ctime>
+#include "Statistici.h"
+#include "Produs.h"
+#include "Cufar.h"
+#include "CufarFactory.h"
 #define MAX_LENGTH_NAME 15 
-
-enum GameState {
-    NAME, MAIN_MENU, PLAY, DOG_BREEDS, CAT_BREEDS, GOLDEN_RETRIEVER, BULLDOG, 
-    POODLE, BICHON, SIAMESE, SFINX, PERSIAN, PROCESS
-};
 
 struct NamedTexture {
     std::string name;     
@@ -29,9 +28,21 @@ struct NamedTexture {
 int Game::dogCount = 0;
 int Game::catCount = 0;
 
-std::vector<NamedTexture> images;
+template <typename T>
+T pickRandom(std::vector<T> items) {
+    int poz = rand() % items.size();
+    return items[poz];
+}
+//template <typename T>
+//T pickRandom2(T a, T b) {
+//    int item = rand() % 2;
+//    if (item == 0)
+//        return a;
+//    return b;
+//}
 
-static void fillImages() {
+
+static void fillImages(std::vector<NamedTexture>& images) {
     images.push_back({ "Bichon", LoadTexture("Bichon.png") });
     images.push_back({ "Bichon2", LoadTexture("Bichon2.png") });
     images.push_back({ "Poodle", LoadTexture("Poodle.png") });
@@ -48,8 +59,6 @@ static void fillImages() {
     images.push_back({ "Siamese2", LoadTexture("Siamese2.png") });
 }
 
-static int cntHeart = 3;
-
 static void displayHearts(int numberH, Texture2D img) {
     int x = 50;
     int y = 20;
@@ -60,6 +69,12 @@ static void displayHearts(int numberH, Texture2D img) {
 }
 
 int main() {
+    enum GameState {
+        NAME, MAIN_MENU, PLAY, DOG_BREEDS, CAT_BREEDS, GOLDEN_RETRIEVER, BULLDOG,
+        POODLE, BICHON, SIAMESE, SFINX, PERSIAN, PROCESS, BUY
+    };
+    int cntHeart = 3;
+
     std::srand(std::time(nullptr));
 
 	Dog dog = dog.createDogSafe("", 3, "Bichon");
@@ -130,7 +145,10 @@ int main() {
     Texture2D heart = LoadTexture("heart.png");
     Texture2D sadFace = LoadTexture("sadFace.png");
 
-    fillImages();
+
+    std::vector<NamedTexture> images;
+
+    fillImages(images);
 
 
 	Button dogButton("Dog", 700, 350, 70, 50);
@@ -149,7 +167,7 @@ int main() {
 
     Rectangle goals[] = { goal1, goal2, goal3, goal4 };
 
-    Rectangle finish;
+    Rectangle finish = { 0, 0, 0, 0 };
 
     float timeLimit = 30.0f;    
     float timeLeft = timeLimit;
@@ -159,6 +177,45 @@ int main() {
     std::string savePlayerName;
     std::string gender;
 
+    std::vector<Cufar<int>>listPowers;
+    Cufar<int> c1 = CufarFactory::creazaCufarBonus();
+    Cufar<int> c2 = CufarFactory::creazaCufarBonus();
+    Cufar<int> c6 = CufarFactory::creazaCufarSanatate();
+    Cufar<int> c7 = CufarFactory::creazaCufarSanatate();
+    Cufar<int> c8 = CufarFactory::creazaCufarFericire();
+    Cufar<int> c9 = CufarFactory::creazaCufarFericire();
+    Cufar<int> c10 = CufarFactory::creazaCufarEnergie();
+    Cufar<int> c11 = CufarFactory::creazaCufarEnergie();
+    listPowers.push_back(c1);
+    listPowers.push_back(c2);
+    listPowers.push_back(c6);
+    listPowers.push_back(c7);
+    listPowers.push_back(c8);
+    listPowers.push_back(c9);
+    listPowers.push_back(c10);
+    listPowers.push_back(c11);
+
+    std::vector<Cufar<std::string>>listQuotes;
+    Cufar<std::string> c3("You are so good with you pet!", "quote");
+    Cufar<std::string> c4("Your pet loves you!", "quote");
+    Cufar<std::string> c5("<3", "quote");
+    Cufar<std::string> c12("Keep playing", "quote");
+    listQuotes.push_back(c3);
+    listQuotes.push_back(c4);
+    listQuotes.push_back(c5);
+    listQuotes.push_back(c12);
+
+    Cufar<int> cuf1 = pickRandom(listPowers);
+    Cufar<std::string> cuf2 = pickRandom(listQuotes);
+
+    Texture2D hapiness = LoadTexture("hapiness.png");
+    Texture2D energy = LoadTexture("batery.png");
+    Texture2D health = LoadTexture("health.png");
+    Texture2D misteryBox = LoadTexture("misteryBox.png");
+
+    Statistici& statistics = Statistici::getInstance();
+    bool reward = false;
+    bool changeHapiness = false;
 
     while (!WindowShouldClose()) {
         BeginDrawing();
@@ -418,7 +475,7 @@ int main() {
                     char* text = new char[processName.length() + 24];
                     strcpy(text, "You are playing with ");
                     strcat(text, processName.c_str());
-                    DrawText(text, 600, 50, 50, BLACK);
+                    DrawText(text, 500, 50, 50, BLACK);
                     delete []text;
                 }
                 catch (std::exception& e) {
@@ -426,27 +483,92 @@ int main() {
                 }
                 
                 if (cntHeart >= 1) {
+                    std::string text = "Try to find where " + processName + "\n" +
+                        "is hidden without touching" + "\n" + "the obstacles : ";
+                    DrawText(text.c_str(), 100, 270, 30, BLACK);
                     Button playButton("Play", 250, 400, 90, 50);
                     playButton.Draw();
                     if (playButton.isPressed()) {
                         currentState = PLAY;
                         int final = game.randomNumber(1, 4);
                         finish = goals[final - 1];
-                        
+                        statistics.modificaEnergie(-3);
                     }
                 }
                 else {
                     DrawText("You don't have enough lives to play!", 150, 400, 20, RED);
                     DrawTexture(sadFace, 300, 450, WHITE);
+                    Button buy("Buy 1 heart for 100 coins", 150, 300, 320, 50);
+                    buy.Draw();
+                    if (buy.isPressed()) {
+                        game.addCoins(-100);
+                        cntHeart = 1;
+                    }
+
                 }
                                 
+                DrawTextureV(energy, { 1000, 650 }, WHITE);
+                DrawTextureV(hapiness, { 1200, 650 }, WHITE);
+                DrawTextureV(health, { 1400, 650 }, WHITE);
+
+                DrawText(std::to_string(statistics.getEnergie()).c_str(), 1110, 700, 30, BLACK);
+                DrawText(std::to_string(statistics.getFericire()).c_str(), 1310, 700, 30, BLACK);
+                DrawText(std::to_string(statistics.getSanatate()).c_str(), 1510, 700, 30, BLACK);
 
                 int coins = game.getCoins();
                 std::string text = "Coins: " + std::to_string(coins);
                 DrawText(text.c_str(), 50, 30, 35, BLACK);
                 
-				
+                Button buy("b", 250, 600, 110, 110);
+                //buy.Draw();
+                DrawTextureV(misteryBox, { 200, 500 }, WHITE);
+                if (buy.isPressed()) {
+                    currentState = BUY;
+                    reward = false;
+                    cuf1 = pickRandom(listPowers);
+                    cuf2 = pickRandom(listQuotes);
+                }
                 break;
+            }
+
+            case BUY: {
+                /*DrawText("Pick items for your pet:", 400, 250, 30, BLACK);
+                statistics.afisare();*/
+
+                DrawText("Congratulations! You got :", 700, 200, 30, DARKPURPLE);
+
+
+                DrawText(cuf1.getTip().c_str(), 400, 400, 30, DARKPURPLE);
+               // DrawText(std::to_string(cuf1.getContinut()).c_str(), 500, 350, 30, DARKPURPLE);
+
+
+                cuf1.drawContinut(400);
+                cuf2.drawContinut(450);
+
+                std::string tip = cuf1.getTip();
+
+                if (!reward) {
+                    if (tip == "sanatate")
+                        statistics.modificaSanatate(cuf1.getContinut());
+                    if (tip == "fericire")
+                        statistics.modificaFericire(cuf1.getContinut());
+                    if (tip == "energie")
+                        statistics.modificaEnergie(cuf1.getContinut());
+                    if (tip == "coins")
+                        game.addCoins(cuf1.getContinut());
+                    reward = true;
+                }
+                
+
+               // statistics.afisare(500);
+
+                Button Back("Back", 50, 700, 100, 50);
+                Back.Draw();
+                if (Back.isPressed())
+                    currentState = PROCESS;
+
+                break;
+
             }
 
             case PLAY: {
@@ -473,7 +595,7 @@ int main() {
                         playerWon = false;
                     }
 
-                    Rectangle playerRec = { playerPos.x + 20, playerPos.y + 10, 
+                    Rectangle playerRec = { playerPos.x + 25, playerPos.y - 4, 
                         40, 50};
 
 
@@ -489,8 +611,9 @@ int main() {
                     if ( game.checkColl(playerRec) ){
                         gameOver = true;
                         playerWon = false;
+                        statistics.modificaSanatate(-5);
                     }
-
+                    bool wrongGoal = false;
                     // evitarea atingerii altor obstacole
                     for (int i = 0; i < 4; i++) {
                         Rectangle g = goals[i];
@@ -501,9 +624,16 @@ int main() {
 
                         if (CheckCollisionRecs(playerRec, g)) {
                             playerPos = oldPos;
+                            wrongGoal = true;
+                            if (!changeHapiness) {
+                                statistics.modificaFericire(-2);
+                                changeHapiness = true;
+                            }                            
                             break;
                         }
                     }
+                    if (!wrongGoal)
+                        changeHapiness = false;
 
                     if (playerPos.x + 60 >= 1600 || playerPos.x + 25 <= 0 ||
                         playerPos.y + 90 >= 800 || playerPos.y + 10 <= 0) {
@@ -583,6 +713,7 @@ int main() {
                             int final = game.randomNumber(1, 4);
                             finish = goals[final - 1];
                             addCoins = false;
+                            statistics.modificaEnergie(-3);
                         }                        
 
                     }
@@ -606,6 +737,7 @@ int main() {
                                 int final = game.randomNumber(1, 4);
                                 finish = goals[final - 1];
                                 cntHeart -= 1;
+                                statistics.modificaEnergie(-3);
                             }
                         }
                         else if (cntHeart == 1 && game.getCoins() >= 100 ) {
@@ -641,6 +773,9 @@ int main() {
         UnloadTexture(i.texture);
     }
     UnloadTexture(sadFace);
+    UnloadTexture(energy);
+    UnloadTexture(hapiness);
+    UnloadTexture(health);
 
 	CloseWindow();
 

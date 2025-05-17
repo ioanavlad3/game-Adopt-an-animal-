@@ -4,6 +4,7 @@
 #include "cat.h"
 #include "button.h"
 #include "SpeciesNotFoundException.h"
+#include "Circle.h"
 
 class Game {
 	private:

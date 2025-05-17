@@ -136,6 +136,7 @@
     <ClCompile Include="Sfinx.cpp" />
     <ClCompile Include="siamese.cpp" />
     <ClCompile Include="SpeciesNotFoundException.cpp" />
+    <ClCompile Include="Statistici.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animal.h" />
@@ -144,6 +145,9 @@
     <ClInclude Include="Bulldog.h" />
     <ClInclude Include="button.h" />
     <ClInclude Include="cat.h" />
+    <ClInclude Include="Circle.h" />
+    <ClInclude Include="Cufar.h" />
+    <ClInclude Include="CufarFactory.h" />
     <ClInclude Include="dog.h" />
     <ClInclude Include="EmptyNameException.h" />
     <ClInclude Include="game.h" />
@@ -151,6 +155,7 @@
     <ClInclude Include="InvalidAgeException.h" />
     <ClInclude Include="Persian.h" />
     <ClInclude Include="Poodle.h" />
+    <ClInclude Include="Produs.h" />
     <ClInclude Include="Sfinx.h" />
     <ClInclude Include="siamese.h" />
     <ClInclude Include="SpeciesNotFoundException.h" />
@@ -255,6 +260,7 @@
     <ClInclude Include="src\include\sfml\window\WindowBase.hpp" />
     <ClInclude Include="src\include\sfml\window\WindowEnums.hpp" />
     <ClInclude Include="src\include\sfml\window\WindowHandle.hpp" />
+    <ClInclude Include="Statistici.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\include\sfml\audio\SoundFileFactory.inl" />
