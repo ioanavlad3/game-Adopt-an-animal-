@@ -14,7 +14,7 @@ public:
 	void modificaFericire(const int valoare);
 	void modificaSanatate(const int valoare);
 	void modificaEnergie(const int valoare);
-	void afisare(int poz_Y = 100);
+	void afisare(const int poz_Y = 100) const ;
 
 	int getFericire() const;
 	int getSanatate() const;

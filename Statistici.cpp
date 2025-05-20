@@ -27,7 +27,7 @@ void Statistici::modificaEnergie(const int valoare) {
 		this->energie = 0;
 }
 
-void Statistici::afisare(int poz_Y) {
+void Statistici::afisare(const int poz_Y) const {
 	std::string text = "Happiness: " + std::to_string(this->fericire) + "  " + 
 		"Health: " + std::to_string(this->sanatate) + "  " + 
 		"Hungry: " + std::to_string(this->energie);

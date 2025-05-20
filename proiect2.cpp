@@ -29,17 +29,10 @@ int Game::dogCount = 0;
 int Game::catCount = 0;
 
 template <typename T>
-T pickRandom(std::vector<T> items) {
+static T pickRandom(std::vector<T> items) {
     int poz = rand() % items.size();
     return items[poz];
 }
-//template <typename T>
-//T pickRandom2(T a, T b) {
-//    int item = rand() % 2;
-//    if (item == 0)
-//        return a;
-//    return b;
-//}
 
 
 static void fillImages(std::vector<NamedTexture>& images) {
@@ -196,10 +189,12 @@ int main() {
     listPowers.push_back(c11);
 
     std::vector<Cufar<std::string>>listQuotes;
-    Cufar<std::string> c3("You are so good with you pet!", "quote");
-    Cufar<std::string> c4("Your pet loves you!", "quote");
-    Cufar<std::string> c5("<3", "quote");
-    Cufar<std::string> c12("Keep playing", "quote");
+
+    Cufar<std::string> c3 = CufarFactory::creazaCufarQuote("You are so good with you pet!");
+    Cufar<std::string> c4 = CufarFactory::creazaCufarQuote("Your pet loves you!");
+    Cufar<std::string> c5 = CufarFactory::creazaCufarQuote("<3");
+    Cufar<std::string> c12 = CufarFactory::creazaCufarQuote("Keep playing");
+
     listQuotes.push_back(c3);
     listQuotes.push_back(c4);
     listQuotes.push_back(c5);
@@ -521,6 +516,7 @@ int main() {
                 
                 Button buy("b", 250, 600, 110, 110);
                 //buy.Draw();
+                DrawText("Press the box to get your reward", 100, 460, 30, DARKPURPLE);
                 DrawTextureV(misteryBox, { 200, 500 }, WHITE);
                 if (buy.isPressed()) {
                     currentState = BUY;
@@ -548,11 +544,11 @@ int main() {
                 std::string tip = cuf1.getTip();
 
                 if (!reward) {
-                    if (tip == "sanatate")
+                    if (tip == "health")
                         statistics.modificaSanatate(cuf1.getContinut());
-                    if (tip == "fericire")
+                    if (tip == "happiness")
                         statistics.modificaFericire(cuf1.getContinut());
-                    if (tip == "energie")
+                    if (tip == "energy")
                         statistics.modificaEnergie(cuf1.getContinut());
                     if (tip == "coins")
                         game.addCoins(cuf1.getContinut());

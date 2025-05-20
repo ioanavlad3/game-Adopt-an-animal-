@@ -2,6 +2,7 @@ Vlad Ioana Gabriela, grupa 132
 GitHub: https://github.com/ioanavlad3/game-Adopt-an-animal-
 
 Proiect "Adapost de animale"
+
 La adapost vin vizitatori care doresc sa isi gaseasca un animal de companie.
 Utilizatorul isi instroduce numele si incepe cautarea animalului de companie.  
 El are anumite criterii pentru animalul lui:
@@ -9,6 +10,11 @@ ce animal sa fie (caine, pisica), rasa lui, varsta si caracteristici ale
 animalului (prietenos, cuminte, etc).
 Daca s-a gasit o compatibilitate, vizitatorul adopta animalul si se poate juca cu el:
 am creat un joc unde animalul este ascuns aleatoriu in spatele unui cufar (unul din cele 4 cufere de pe ecran), iar stapanul trebuie sa-l gaseasa in timp util (sa nu se scurga timpul ) si sa nu se loveasa de obstacole. De asemenea, numarul de obstacole este creat aleatoriu si ele sunt puse aleatoriu pe ecran. Daca stapanul castiga jocul atunci primeste 200 de banuti. Stapanul are dreptul la 3 incercari pentru a-si salva animalul de companie, iar daca le pierde, la final, poate cumpara o viata pentru 100 de banuti (doar daca are minim aceasta suma), altfel nu se mai poate juca.
+Utilizatorul are niste statistici (fericire, energie, sanatate) care se modifica prin diferite criterii:
+	fericirea scade daca utilizatorul nu isi gaseste animalul de companie ,
+	energia scade mereu cand se joaca ,
+	sanatatea scade mereu cand atinge un obstacol.
+In pagina principala, se gaseste o cutie misterioasa, care contine un bonus (ori pentru fericire, sanatate, energie sau banuti) si un mesaj motivational.
 
 Clase:
     Animal:
@@ -20,11 +26,13 @@ Clase:
     Button
     AnimalException:
 	    SpeciesNotFoundException, InvalidAgeException, EmptyNameException
+    Cufar
+    CufarFactory
+    Statistici
 
 Animal:
-	    Am creat functii virtuale pure pentru a afisa sunetul animalului, care va fi suprascris
-	in clasele derivate., iar alte functii virtuale pentru a afisa caracteristicile
-	animalului, care vor fi suprascrise in clasele derivate.
+	    Am creat functii virtuale pure pentru a afisa sunetul animalului(makeSound(), displaySound()), care vor fi suprascrise in clasele derivate, iar alte functii virtuale pentru a afisa caracteristicile
+animalului, care vor fi suprascrise in clasele derivate.
 
 	Dog, Cat:
 	M-am folosit de mostenire pentru a crea clasele derivate.
@@ -38,15 +46,15 @@ Animal:
     
     clase derivate din Dog:
 			Golden Retriever, Bichon, Poodle, Bulldog
-            Am suprascris functia makesound() pentru a afisa un sunet diferit fiecarui animal.
+            Am suprascris functiile makesound() si displaySound() pentru a afisa un sunet diferit fiecarui animal.
     clase derivate din Cat:
 			Sfinx, Siamese, Persian
 
 Button:
 	Am creat o clasa care contine un buton, cu functii pentru a-l desena si a verifica
-	daca a fost apasat. 
+daca a fost apasat. 
 	Am creat un constructor care primeste textul butonului, coordonatele si dimensiunea
-	butonului.
+butonului.
 
 Game:
 	Am creat o clasa care contine un vector de animale, un vector de caini, un vector de pisici.
@@ -61,6 +69,16 @@ caracteristicile fiecarui animal, iar daca este apasat un buton, se va afisa ani
 	Am creat o functie care creeaza un numar aleatoriu de obstacole si le pune tot aleatoriu pe ecran. De asemenea, fiecare obstacol are si o viteza cu care se misca.
 	Am creat o functie care da update obstacolelor sa se tot miste.
 	Am creat o functie care sa deteteze daca utilizatorul este fata sau baiat in functie de numele sau. 
+
+Statistici :
+	O clasa de tip singleton, deoarece un utilizator are un singur rand de statistici.
+
+Cufar:
+	Clasa template care contine un element de tip template care poate fi ori de tip int ori de tip string (bonus sau mesaj).
+
+CufarFactory:
+	Clasa unde m-am folosit de design pattern Factory pentru a crea diferite tipuri de cufere (pentru sanitate, energie, fericire, bonus sau mesaj).
+   
 
 
 Bibliografie:
@@ -81,3 +99,12 @@ https://www.reddit.com/r/raylib/comments/1hs4pg7/trying_to_add_camera_tracking_t
 
 Pentru a insera un text:
 https://www.raylib.com/examples/text/loader.html?name=text_input_box 
+
+Pentru design patters si pentru template :
+https://github.com/mcmarius/poo/tree/master/tema-3
+
+Pentru templates:
+https://www.geeksforgeeks.org/templates-cpp/
+
+Pentru design patterns:
+https://www.geeksforgeeks.org/modern-c-design-patterns-tutorial/ 

@@ -1,5 +1,6 @@
 #pragma once
 #include "Cufar.h"
+#include <string>
 
 class CufarFactory{
 public:
@@ -10,15 +11,18 @@ public:
 	}
 	static Cufar<int> creazaCufarSanatate() {
 		int sanatate = rand() % 100 + 1;
-		return Cufar<int>(sanatate, "sanatate");
+		return Cufar<int>(sanatate, "health");
 	}
 	static Cufar<int> creazaCufarFericire() {
 		int fericire = rand() % 50 + 1;
-		return Cufar<int>(fericire, "fericire");
+		return Cufar<int>(fericire, "happiness");
 	}
 	static Cufar<int> creazaCufarEnergie() {
 		int energie = rand() % 100 + 1;
-		return Cufar<int>(energie, "energie");
+		return Cufar<int>(energie, "energy");
+	}
+	static Cufar<std::string> creazaCufarQuote(std::string quote) {
+		return Cufar<std::string>(quote, "quote");
 	}
 
 };
