@@ -64,7 +64,7 @@ static void displayHearts(int numberH, Texture2D img) {
 int main() {
     enum GameState {
         NAME, MAIN_MENU, PLAY, DOG_BREEDS, CAT_BREEDS, GOLDEN_RETRIEVER, BULLDOG,
-        POODLE, BICHON, SIAMESE, SFINX, PERSIAN, PROCESS, BUY
+        POODLE, BICHON, SIAMESE, SFINX, PERSIAN, PROCESS, BUY, QUEST   
     };
     int cntHeart = 3;
 
@@ -207,6 +207,7 @@ int main() {
     Texture2D energy = LoadTexture("batery.png");
     Texture2D health = LoadTexture("health.png");
     Texture2D misteryBox = LoadTexture("misteryBox.png");
+    Texture2D quest = LoadTexture("quest2-removebg-preview.png");
 
     Statistici& statistics = Statistici::getInstance();
     bool reward = false;
@@ -476,11 +477,19 @@ int main() {
                 catch (std::exception& e) {
 					std::cout << "Error: " << e.what() << std::endl;
                 }
+
+                Button questButton("", 1445, 75, 30, 30);
+                questButton.Draw();
+                if (questButton.isPressed()) {
+                    currentState = QUEST;
+                }
+
+                DrawTexture(quest, 1400, 50, WHITE);
                 
                 if (cntHeart >= 1) {
-                    std::string text = "Try to find where " + processName + "\n" +
-                        "is hidden without touching" + "\n" + "the obstacles : ";
-                    DrawText(text.c_str(), 100, 270, 30, BLACK);
+                    //std::string text = "Try to find where " + processName + "\n" +
+                      //  "is hidden without touching" + "\n" + "the obstacles : ";
+                   // DrawText(text.c_str(), 100, 270, 30, BLACK);
                     Button playButton("Play", 250, 400, 90, 50);
                     playButton.Draw();
                     if (playButton.isPressed()) {
@@ -563,6 +572,31 @@ int main() {
                 if (Back.isPressed())
                     currentState = PROCESS;
 
+                break;
+
+            }
+
+            case QUEST: {
+                std::string text = " Congratulations! \nNow you have adopted " + processName + 
+                  ".  It is very funny, but now it is hiding from you in one of these 4 boxes.\n" +
+                   " Your mission is to find " + processName + " within 30 seconds, without touching any obstacles.\n"
+
+                   + " Here are the rules : \n" +
+
+                "If you touch an obstacle, you lose 1 life. Do not worry, you start with 3 lives.\n" +
+                 "\tEvery time you hit an obstacle, you also lose some health points.\n" +
+                "\tIf you do not find" + processName + " on your first try, you lose some happiness points.\n" +
+                "\tEvery time you play, you use up some energy.\n" +
+                 "\tWhen you finally find " + processName +", you gain happiness points and 200 coins!\n" +
+                "\nThere is also a Mystery Box!  If you touch it, you will automatically get a surprise! it can be :\n" +
+                "\textra happiness,\n\tmore energy,\n\tsome health points,\n\ta few coins,\n\tand a motivational quote!";
+                DrawText(text.c_str(), 50, 100, 30, BLACK);
+              
+
+                Button back("Back", 50, 700, 100, 50);
+                back.Draw();
+                if (back.isPressed())
+                    currentState = PROCESS;
                 break;
 
             }
@@ -772,6 +806,7 @@ int main() {
     UnloadTexture(energy);
     UnloadTexture(hapiness);
     UnloadTexture(health);
+    UnloadTexture(quest);
 
 	CloseWindow();
 
