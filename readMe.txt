@@ -1,110 +1,173 @@
-Vlad Ioana Gabriela, grupa 132
-GitHub: https://github.com/ioanavlad3/game-Adopt-an-animal-
+<h1 align="center">Animal Shelter</h1>
 
-Proiect "Adapost de animale"
+<p align="center">
+An interactive application where visitors can find and adopt a pet, and then play a fun game to save it!  
+<br>
+Built with <strong>C++</strong> and <strong>Raylib</strong>.
+</p>
 
-La adapost vin vizitatori care doresc sa isi gaseasca un animal de companie.
-Utilizatorul isi instroduce numele si incepe cautarea animalului de companie.  
-El are anumite criterii pentru animalul lui:
-ce animal sa fie (caine, pisica), rasa lui, varsta si caracteristici ale 
-animalului (prietenos, cuminte, etc).
-Daca s-a gasit o compatibilitate, vizitatorul adopta animalul si se poate juca cu el:
-am creat un joc unde animalul este ascuns aleatoriu in spatele unui cufar (unul din cele 4 cufere de pe ecran), iar stapanul trebuie sa-l gaseasa in timp util (sa nu se scurga timpul ) si sa nu se loveasa de obstacole. De asemenea, numarul de obstacole este creat aleatoriu si ele sunt puse aleatoriu pe ecran. Daca stapanul castiga jocul atunci primeste 200 de banuti. Stapanul are dreptul la 3 incercari pentru a-si salva animalul de companie, iar daca le pierde, la final, poate cumpara o viata pentru 100 de banuti (doar daca are minim aceasta suma), altfel nu se mai poate juca.
-Utilizatorul are niste statistici (fericire, energie, sanatate) care se modifica prin diferite criterii:
-	fericirea scade daca utilizatorul nu isi gaseste animalul de companie ,
-	energia scade mereu cand se joaca ,
-	sanatatea scade mereu cand atinge un obstacol.
-In pagina principala, se gaseste o cutie misterioasa, care contine un bonus (ori pentru fericire, sanatate, energie sau banuti) si un mesaj motivational.
+<hr>
 
-Clase:
-    Animal:
-        Dog:
-            Golden Retriever, Bichon, Pooddle, Bulldog
-        Cat:
-			Sfinx, Siamese, Persian
-    Game
-    Button
-    AnimalException:
-	    SpeciesNotFoundException, InvalidAgeException, EmptyNameException
-    Cufar
-    CufarFactory
-    Statistici
+<h2>Features</h2>
 
-Animal:
-	    Am creat functii virtuale pure pentru a afisa sunetul animalului(makeSound(), displaySound()), care vor fi suprascrise in clasele derivate, iar alte functii virtuale pentru a afisa caracteristicile
-animalului, care vor fi suprascrise in clasele derivate.
+<h3>Pet Adoption</h3>
+<ul>
+  <li>Visitors enter their name and search for a pet.</li>
+  <li>Search criteria:
+    <ul>
+      <li>Animal type: <strong>dog</strong> or <strong>cat</strong></li>
+      <li>Breed</li>
+      <li>Age</li>
+      <li>Characteristics (friendly, calm, etc.)</li>
+    </ul>
+  </li>
+  <li>If a match is found, the visitor adopts the pet.</li>
+</ul>
 
-	Dog, Cat:
-	M-am folosit de mostenire pentru a crea clasele derivate.
-	M-am folosit de supraincarcarea functiilor pentru a crea constructori:
-		Am creat un constructor care primeste numele, varsta si dimensiunea animalului.
-		Am creat un constructor care primeste numele, varsta, dimensiunea si caracteristicile
-		animalului.
-		Am creat o functie care returneaza dimensiunea animalului in functie de rasa.
-        Am creat o functie care se ajuta de clasele pentru tratarea erorilor , 
-	pentru a crea un animal in siguranta (cu nume si varste corecte).
-    
-    clase derivate din Dog:
-			Golden Retriever, Bichon, Poodle, Bulldog
-            Am suprascris functiile makesound() si displaySound() pentru a afisa un sunet diferit fiecarui animal.
-    clase derivate din Cat:
-			Sfinx, Siamese, Persian
+<h3>The Game</h3>
+<ul>
+  <li>The pet is randomly hidden behind one of <strong>4 chests</strong>.</li>
+  <li>The player must find it <strong>within 30 seconds</strong> without hitting obstacles.</li>
+  <li>Obstacles:
+    <ul>
+      <li>Random number and random positions</li>
+      <li>Hitting one reduces health and costs 1 of your 3 lives</li>
+    </ul>
+  </li>
+  <li>If the player wins, they earn <strong>200 coins</strong>.</li>
+  <li>If all lives are lost:
+    <ul>
+      <li>You can buy an extra life for <strong>100 coins</strong> (if you have enough)</li>
+      <li>Otherwise, the game ends</li>
+    </ul>
+  </li>
+  <li>On the main page there’s also a <strong>Mystery Box</strong>:
+    <ul>
+      <li>Gives a random bonus (happiness, health, energy, coins) and a motivational message</li>
+    </ul>
+  </li>
+</ul>
 
-Button:
-	Am creat o clasa care contine un buton, cu functii pentru a-l desena si a verifica
-daca a fost apasat. 
-	Am creat un constructor care primeste textul butonului, coordonatele si dimensiunea
-butonului.
+<h2>Player Stats</h2>
+<ul>
+  <li><strong>Happiness</strong> decreases if they don’t find the pet</li>
+  <li><strong>Energy</strong> decreases every time they play</li>
+  <li><strong>Health</strong> decreases when hitting obstacles</li>
+</ul>
 
-Game:
-	Am creat o clasa care contine un vector de animale, un vector de caini, un vector de pisici.
-	Am creat functii pentru a adauga animale, a afisa animalele, a afisa rasele 
-    de caini si pisici.
-	Am creat functii pentru a afisa sunetul animalului, a afisa caracteristicile sale
-	Am creat o functie addAnimal care adauga un animal in functie de tipul lui 
-	(caine sau pisica), ajutandu-ma de dynamic_cast.
-	Am creat o functie care afiseaza animalele in functie de rasa lor, afiseaza 
-caracteristicile fiecarui animal, iar daca este apasat un buton, se va afisa animalul corespunzator rasei respective.
-        Am creat o functie care returneaza un numar aleatoriu care se afla intr-un interval anume.
-	Am creat o functie care creeaza un numar aleatoriu de obstacole si le pune tot aleatoriu pe ecran. De asemenea, fiecare obstacol are si o viteza cu care se misca.
-	Am creat o functie care da update obstacolelor sa se tot miste.
-	Am creat o functie care sa deteteze daca utilizatorul este fata sau baiat in functie de numele sau. 
+<hr>
 
-Statistici :
-	O clasa de tip singleton, deoarece un utilizator are un singur rand de statistici.
+<h2>Classes Overview</h2>
 
-Cufar:
-	Clasa template care contine un element de tip template care poate fi ori de tip int ori de tip string (bonus sau mesaj).
+<h3>Animals</h3>
+<ul>
+  <li>Base: <code>Animal</code>
+    <ul>
+      <li>Pure virtual methods: <code>makeSound()</code>, <code>displaySound()</code></li>
+      <li>Virtual methods for displaying characteristics</li>
+    </ul>
+  </li>
+  <li>Derived:
+    <ul>
+      <li><code>Dog</code>:
+        <ul>
+          <li>Breeds: Golden Retriever, Bichon, Poodle, Bulldog</li>
+          <li>Overridden <code>makeSound()</code> and <code>displaySound()</code> for each breed</li>
+        </ul>
+      </li>
+      <li><code>Cat</code>:
+        <ul>
+          <li>Breeds: Sphinx, Siamese, Persian</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Constructors:
+    <ul>
+      <li>Name, age, size</li>
+      <li>Name, age, size, characteristics</li>
+    </ul>
+  </li>
+  <li>Additional:
+    <ul>
+      <li>Function to determine size by breed</li>
+      <li>Function to validate name & age using exceptions:
+        <ul>
+          <li><code>SpeciesNotFoundException</code></li>
+          <li><code>InvalidAgeException</code></li>
+          <li><code>EmptyNameException</code></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
 
-CufarFactory:
-	Clasa unde m-am folosit de design pattern Factory pentru a crea diferite tipuri de cufere (pentru sanitate, energie, fericire, bonus sau mesaj).
-   
+<h3>Game Logic</h3>
+<ul>
+  <li>Contains:
+    <ul>
+      <li>Vector of animals</li>
+      <li>Vector of dogs & cats</li>
+    </ul>
+  </li>
+  <li>Functions:
+    <ul>
+      <li>Add/display animals by type and breed</li>
+      <li>Display animal sounds & characteristics</li>
+      <li>Randomly generate & place obstacles</li>
+      <li>Update obstacles’ movement</li>
+      <li>Detect player gender based on name</li>
+      <li>Generate random numbers in specific ranges</li>
+    </ul>
+  </li>
+</ul>
 
+<h3>UI</h3>
+<ul>
+  <li><code>Button</code>:
+    <ul>
+      <li>Draws the button and detects clicks</li>
+      <li>Constructor takes text, coordinates, and size</li>
+    </ul>
+  </li>
+  <li><code>Chest</code>:
+    <ul>
+      <li>Template class holding either a bonus (<code>int</code>) or a message (<code>string</code>)</li>
+    </ul>
+  </li>
+  <li><code>ChestFactory</code>:
+    <ul>
+      <li>Uses Factory pattern to create different types of chests (health, energy, happiness, bonus, message)</li>
+    </ul>
+  </li>
+</ul>
 
-Bibliografie:
+<h3>Statistics</h3>
+<ul>
+  <li><code>Statistics</code>: singleton — each player has only one set of stats.</li>
+</ul>
 
-Pentru instalarea librariei Raylib si pentru a-i intelege bazele:
-https://www.youtube.com/watch?v=RGzj-PF7D74&list=PLwR6ZGPvjVOTIMqUXnqyWaIfQg0xdHNZn&ab_channel=ProgrammingWithNick
+<hr>
 
-Pentru a include butoane in proiect m-am ajutat de acest tutorial:
-https://www.youtube.com/watch?v=0Ct9ZWEUm7M&list=PLwR6ZGPvjVOTIMqUXnqyWaIfQg0xdHNZn&index=10&ab_channel=ProgrammingWithNick
+<h2>Resources & Inspiration</h2>
 
-De aici m-am inspirat cum sa accesez diferite ferestre ale proiectului:
-https://www.tutorialspoint.com/cplusplus/cpp_enumeration.htm
+<ul>
+  <li><a href="https://www.youtube.com/watch?v=RGzj-PF7D74&list=PLwR6ZGPvjVOTIMqUXnqyWaIfQg0xdHNZn&ab_channel=ProgrammingWithNick">Raylib installation & basics</a></li>
+  <li><a href="https://www.youtube.com/watch?v=0Ct9ZWEUm7M&list=PLwR6ZGPvjVOTIMqUXnqyWaIfQg0xdHNZn&index=10&ab_channel=ProgrammingWithNick">Buttons tutorial</a></li>
+  <li><a href="https://www.tutorialspoint.com/cplusplus/cpp_enumeration.htm">C++ enumerations</a></li>
+  <li><a href="https://www.reddit.com/r/raylib/comments/1hs4pg7/trying_to_add_camera_tracking_that_moves_with_the">Camera movement</a></li>
+  <li><a href="https://www.raylib.com/examples/text/loader.html?name=text_input_box">Text input</a></li>
+  <li><a href="https://github.com/mcmarius/poo/tree/master/tema-3">Design patterns & templates</a></li>
+  <li><a href="https://www.geeksforgeeks.org/templates-cpp/">Templates</a></li>
+  <li><a href="https://www.geeksforgeeks.org/modern-c-design-patterns-tutorial/">Modern C++ design patterns</a></li>
+</ul>
 
+<hr>
 
-De aici m-am inspirat cum sa misc in camera un obiect:
-https://www.reddit.com/r/raylib/comments/1hs4pg7/trying_to_add_camera_tracking_that_moves_with_the
+<h2>Technologies</h2>
+<ul>
+  <li>C++</li>
+  <li><a href="https://www.raylib.com/">Raylib</a> (graphics library)</li>
+</ul>
 
-
-Pentru a insera un text:
-https://www.raylib.com/examples/text/loader.html?name=text_input_box 
-
-Pentru design patters si pentru template :
-https://github.com/mcmarius/poo/tree/master/tema-3
-
-Pentru templates:
-https://www.geeksforgeeks.org/templates-cpp/
-
-Pentru design patterns:
-https://www.geeksforgeeks.org/modern-c-design-patterns-tutorial/ 
+<hr>
