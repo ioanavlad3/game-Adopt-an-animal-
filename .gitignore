@@ -1,1 +1,16 @@
 .vs/
+# Visual Studio temporary files
+.vs/
+Debug/
+Release/
+x64/
+x86/
+*.exe
+*.obj
+*.pdb
+*.log
+*.tlog
+*.lastbuildstate
+*.idb
+*.db
+*.opendb
